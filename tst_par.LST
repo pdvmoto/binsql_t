@@ -1,0 +1,742 @@
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set autotrace on
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set linesize 120
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > @where
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- added git comment
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column database	  format A10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column instance	  format A8   head curr_inst
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column created	  format a21
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column arch	  format a6
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column role	  format a8
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column prot_mode   format A8
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column prot_level  format a8  wrap
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column hostname	  format a10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column started	  format a21
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set feedb off
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select d.name					 as database
+  2  , i.instance_name				       as instance
+  3  , to_char ( d.created, 'YYYY-MON-DD HH24:MI:SS' ) as created
+  4  , substr ( d.log_mode, 1, 5)		       as arch
+  5  , substr ( d.database_role, 1, 7 ) 	       as role
+  6  ,		 substr ( d.protection_mode, 1, 3)
+  7    || ' ' || substr ( d.protection_mode, 9, 4)     as prot_mode
+  8  , substr ( d.protection_level, 1, 6 )	       as prot_level
+  9  from gv$database  d
+ 10  	, gv$instance  i ;
+
+DATABASE   curr_ins CREATED               ARCH   ROLE     PROT_MOD PROT_LEV
+---------- -------- --------------------- ------ -------- -------- --------
+DWHDB01    dwhdb01  2013-DEC-18 16:28:40  ARCHI  PRIMARY  MAX PERF MAXIMU
+Verstreken: 00:00:00.03
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 298764231
+
+---------------------------------------------------------------------------------------
+| Id  | Operation               | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT        |             |     1 |    66 |     0   (0)| 00:00:01 |
+|   1 |  MERGE JOIN CARTESIAN   |             |     1 |    66 |     0   (0)| 00:00:01 |
+|   2 |   MERGE JOIN CARTESIAN  |             |     1 |    55 |     0   (0)| 00:00:01 |
+|   3 |    MERGE JOIN CARTESIAN |             |     1 |    55 |     0   (0)| 00:00:01 |
+|   4 |     MERGE JOIN CARTESIAN|             |     1 |    47 |     0   (0)| 00:00:01 |
+|   5 |      FIXED TABLE FULL   | X$KCCDI     |     1 |    47 |     0   (0)| 00:00:01 |
+|   6 |      BUFFER SORT        |             |     1 |       |     0   (0)| 00:00:01 |
+|   7 |       FIXED TABLE FULL  | X$KCCDI2    |     1 |       |     0   (0)| 00:00:01 |
+|   8 |     BUFFER SORT         |             |     1 |     8 |     0   (0)| 00:00:01 |
+|   9 |      FIXED TABLE FULL   | X$KSUXSINST |     1 |     8 |     0   (0)| 00:00:01 |
+|  10 |    BUFFER SORT          |             |     1 |       |     0   (0)| 00:00:01 |
+|  11 |     FIXED TABLE FULL    | X$QUIESCE   |     1 |       |     0   (0)| 00:00:01 |
+|  12 |   BUFFER SORT           |             |     1 |    11 |     0   (0)| 00:00:01 |
+|* 13 |    FIXED TABLE FULL     | X$KVIT      |     1 |    11 |     0   (0)| 00:00:01 |
+---------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+  13 - filter("KVITTAG"='kcbwst')
+
+
+Statistics
+----------------------------------------------------------
+        264  recursive calls
+          0  db block gets
+         94  consistent gets
+          7  physical reads
+          0  redo size
+        762  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+         14  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column instance	  format a8 head instance
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select i.instance_name				      as instance
+  2  , i.host_name					     as hostname
+  3  , to_char ( i.startup_time, 'YYYY-MON-DD HH24:MI:SS' ) as started
+  4  , i.status
+  5  , count (*) as sessions
+  6  from gv$instance i
+  7  	, gv$session s
+  8  where i.inst_id = s.inst_id
+  9  group by i.instance_name, i.host_name, i.startup_time, i.status
+ 10  order by 1, 2, 3 ;
+
+instance HOSTNAME   STARTED               STATUS            SESSIONS
+-------- ---------- --------------------- --------------- ----------
+dwhdb01  alp-dbs000 2021-NOV-18 10:17:21  OPEN                   269
+         04.alfa.lo
+         cal
+
+Verstreken: 00:00:00.03
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1868206112
+
+-------------------------------------------------------------------------------------------------
+| Id  | Operation                     | Name            | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT              |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   1 |  SORT ORDER BY                |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   2 |   HASH GROUP BY               |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   3 |    MERGE JOIN CARTESIAN       |                 |     1 |    82 |     0   (0)| 00:00:01 |
+|*  4 |     HASH JOIN                 |                 |     1 |    82 |     0   (0)| 00:00:01 |
+|   5 |      NESTED LOOPS             |                 |     1 |    36 |     0   (0)| 00:00:01 |
+|   6 |       NESTED LOOPS            |                 |    45 |  1035 |     0   (0)| 00:00:01 |
+|   7 |        MERGE JOIN CARTESIAN   |                 |    45 |   855 |     0   (0)| 00:00:01 |
+|*  8 |         FIXED TABLE FULL      | X$KVIT          |     1 |    11 |     0   (0)| 00:00:01 |
+|   9 |         BUFFER SORT           |                 |    45 |   360 |     0   (0)| 00:00:01 |
+|  10 |          FIXED TABLE FULL     | X$KSLWT         |    45 |   360 |     0   (0)| 00:00:01 |
+|* 11 |        FIXED TABLE FIXED INDEX| X$KSLED (ind:2) |     1 |     4 |     0   (0)| 00:00:01 |
+|* 12 |       FIXED TABLE FIXED INDEX | X$KSUSE (ind:1) |     1 |    13 |     0   (0)| 00:00:01 |
+|  13 |      FIXED TABLE FULL         | X$KSUXSINST     |     1 |    46 |     0   (0)| 00:00:01 |
+|  14 |     BUFFER SORT               |                 |     1 |       |     2 (100)| 00:00:01 |
+|  15 |      FIXED TABLE FULL         | X$QUIESCE       |     1 |       |     0   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   4 - access("KS"."INST_ID"="S"."INST_ID")
+   8 - filter("KVITTAG"='kcbwst')
+  11 - filter("W"."KSLWTEVT"="E"."INDX")
+  12 - filter("S"."INDX"="W"."KSLWTSID" AND BITAND("S"."KSUSEFLG",1)<>0 AND
+              BITAND("S"."KSSPAFLG",1)<>0)
+
+
+Statistics
+----------------------------------------------------------
+        368  recursive calls
+          0  db block gets
+        112  consistent gets
+          5  physical reads
+          0  redo size
+        644  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+         13  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > rem CDB/PDB
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column con_id format A10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column con_name format A20
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select
+  2    sys_context('USERENV', 'CON_ID') as con_id,
+  3    sys_context('USERENV', 'CON_NAME') as con_name
+  4  from dual ;
+
+CON_ID     CON_NAME
+---------- --------------------
+0          dwhdb01
+Verstreken: 00:00:00.00
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1388734953
+
+-----------------------------------------------------------------
+| Id  | Operation        | Name | Rows  | Cost (%CPU)| Time     |
+-----------------------------------------------------------------
+|   0 | SELECT STATEMENT |      |     1 |     3   (0)| 00:00:01 |
+|   1 |  FAST DUAL       |      |     1 |     3   (0)| 00:00:01 |
+-----------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+          0  consistent gets
+          0  physical reads
+          0  redo size
+        419  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- need a blank line...
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- select '' from dual;
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set feedb on
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt .
+.
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt start a count with no hints, expect some DoP, parallel.
+start a count with no hints, expect some DoP, parallel.
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt .
+.
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)
+----------
+  93171410
+
+1 rij is geselecteerd.
+
+Verstreken: 00:00:14.03
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1205439302
+
+---------------------------------------------------------------------------------
+| Id  | Operation             | Name            | Rows  | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |                 |     1 |   163K  (1)| 00:00:07 |
+|   1 |  SORT AGGREGATE       |                 |     1 |            |          |
+|   2 |   INDEX FAST FULL SCAN| PK_001_DWH_PRSD |    80M|   163K  (1)| 00:00:07 |
+---------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+        129  recursive calls
+          2  db block gets
+     469522  consistent gets
+     264450  physical reads
+    9861008  redo size
+        359  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          6  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)
+----------
+ 465740238
+
+1 rij is geselecteerd.
+
+Verstreken: 00:02:04.20
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2720662536
+
+-------------------------------------------------------------------------------------
+| Id  | Operation          | Name                   | Rows  | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |                        |     1 |  1750K  (1)| 00:01:09 |
+|   1 |  SORT AGGREGATE    |                        |     1 |            |          |
+|   2 |   TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |   465M|  1750K  (1)| 00:01:09 |
+-------------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+         33  recursive calls
+          0  db block gets
+    4658614  consistent gets
+    2330585  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          5  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt with forced non-parallel, and force a FTS (or cbo will scan indexes)
+with forced non-parallel, and force a FTS (or cbo will scan indexes)
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ full(t) noparallel(t) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)
+----------
+  93171410
+
+1 rij is geselecteerd.
+
+Verstreken: 00:02:25.78
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1939653059
+
+----------------------------------------------------------------------------------------
+| Id  | Operation          | Name                      | Rows  | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |                           |     1 |  3419K  (1)| 00:02:14 |
+|   1 |  SORT AGGREGATE    |                           |     1 |            |          |
+|   2 |   TABLE ACCESS FULL| DWH_001_PROJ_SNAPSHOT_DET |    80M|  3419K  (1)| 00:02:14 |
+----------------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+    5252686  consistent gets
+    5252650  physical reads
+          0  redo size
+        359  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 	;
+  1* select /*+ full(t) noparallel(t) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ full(t) noparallel(t) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)
+----------
+ 465740238
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:42.16
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2720662536
+
+-------------------------------------------------------------------------------------
+| Id  | Operation          | Name                   | Rows  | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |                        |     1 |  1750K  (1)| 00:01:09 |
+|   1 |  SORT AGGREGATE    |                        |     1 |            |          |
+|   2 |   TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |   465M|  1750K  (1)| 00:01:09 |
+-------------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+    4658557  consistent gets
+    2330580  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt with forced parallel,  DoP=2
+with forced parallel,  DoP=2
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ parallel(t, 2) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)
+----------
+  93171410
+
+1 rij is geselecteerd.
+
+Verstreken: 00:00:02.32
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1205439302
+
+---------------------------------------------------------------------------------
+| Id  | Operation             | Name            | Rows  | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |                 |     1 |   163K  (1)| 00:00:07 |
+|   1 |  SORT AGGREGATE       |                 |     1 |            |          |
+|   2 |   INDEX FAST FULL SCAN| PK_001_DWH_PRSD |    80M|   163K  (1)| 00:00:07 |
+---------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+     264457  consistent gets
+          0  physical reads
+          0  redo size
+        359  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ parallel(t, 2) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)
+----------
+ 465740238
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:05.43
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 3688640101
+
+----------------------------------------------------------------------------------------------------------------------
+| Id  | Operation              | Name                   | Rows  | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |
+----------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT       |                        |     1 |   972K  (1)| 00:00:38 |        |      |            |
+|   1 |  SORT AGGREGATE        |                        |     1 |            |          |        |      |            |
+|   2 |   PX COORDINATOR       |                        |       |            |          |        |      |            |
+|   3 |    PX SEND QC (RANDOM) | :TQ10000               |     1 |            |          |  Q1,00 | P->S | QC (RAND)  |
+|   4 |     SORT AGGREGATE     |                        |     1 |            |          |  Q1,00 | PCWP |            |
+|   5 |      PX BLOCK ITERATOR |                        |   465M|   972K  (1)| 00:00:38 |  Q1,00 | PCWC |            |
+|   6 |       TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |   465M|   972K  (1)| 00:00:38 |  Q1,00 | PCWP |            |
+----------------------------------------------------------------------------------------------------------------------
+
+Note
+-----
+   - Degree of Parallelism is 2 because of table property
+
+
+Statistics
+----------------------------------------------------------
+          7  recursive calls
+          0  db block gets
+    4660009  consistent gets
+    2330580  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt with foced parallel,  DoP=4
+with foced parallel,  DoP=4
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ parallel(t, 4) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)
+----------
+  93171410
+
+1 rij is geselecteerd.
+
+Verstreken: 00:00:02.31
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1205439302
+
+---------------------------------------------------------------------------------
+| Id  | Operation             | Name            | Rows  | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |                 |     1 |   163K  (1)| 00:00:07 |
+|   1 |  SORT AGGREGATE       |                 |     1 |            |          |
+|   2 |   INDEX FAST FULL SCAN| PK_001_DWH_PRSD |    80M|   163K  (1)| 00:00:07 |
+---------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+     264457  consistent gets
+          0  physical reads
+          0  redo size
+        359  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ parallel(t, 4) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)
+----------
+ 465740238
+
+1 rij is geselecteerd.
+
+Verstreken: 00:00:45.12
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 3688640101
+
+----------------------------------------------------------------------------------------------------------------------
+| Id  | Operation              | Name                   | Rows  | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |
+----------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT       |                        |     1 |   486K  (1)| 00:00:19 |        |      |            |
+|   1 |  SORT AGGREGATE        |                        |     1 |            |          |        |      |            |
+|   2 |   PX COORDINATOR       |                        |       |            |          |        |      |            |
+|   3 |    PX SEND QC (RANDOM) | :TQ10000               |     1 |            |          |  Q1,00 | P->S | QC (RAND)  |
+|   4 |     SORT AGGREGATE     |                        |     1 |            |          |  Q1,00 | PCWP |            |
+|   5 |      PX BLOCK ITERATOR |                        |   465M|   486K  (1)| 00:00:19 |  Q1,00 | PCWC |            |
+|   6 |       TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |   465M|   486K  (1)| 00:00:19 |  Q1,00 | PCWP |            |
+----------------------------------------------------------------------------------------------------------------------
+
+Note
+-----
+   - Degree of Parallelism is 4 because of table property
+
+
+Statistics
+----------------------------------------------------------
+         15  recursive calls
+          0  db block gets
+    4660809  consistent gets
+    2330580  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > @where
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- added git comment
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column database	  format A10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column instance	  format A8   head curr_inst
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column created	  format a21
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column arch	  format a6
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column role	  format a8
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column prot_mode   format A8
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column prot_level  format a8  wrap
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column hostname	  format a10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column started	  format a21
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set feedb off
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select d.name					 as database
+  2  , i.instance_name				       as instance
+  3  , to_char ( d.created, 'YYYY-MON-DD HH24:MI:SS' ) as created
+  4  , substr ( d.log_mode, 1, 5)		       as arch
+  5  , substr ( d.database_role, 1, 7 ) 	       as role
+  6  ,		 substr ( d.protection_mode, 1, 3)
+  7    || ' ' || substr ( d.protection_mode, 9, 4)     as prot_mode
+  8  , substr ( d.protection_level, 1, 6 )	       as prot_level
+  9  from gv$database  d
+ 10  	, gv$instance  i ;
+
+DATABASE   curr_ins CREATED               ARCH   ROLE     PROT_MOD PROT_LEV
+---------- -------- --------------------- ------ -------- -------- --------
+DWHDB01    dwhdb01  2013-DEC-18 16:28:40  ARCHI  PRIMARY  MAX PERF MAXIMU
+Verstreken: 00:00:00.01
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 298764231
+
+---------------------------------------------------------------------------------------
+| Id  | Operation               | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+---------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT        |             |     1 |    66 |     0   (0)| 00:00:01 |
+|   1 |  MERGE JOIN CARTESIAN   |             |     1 |    66 |     0   (0)| 00:00:01 |
+|   2 |   MERGE JOIN CARTESIAN  |             |     1 |    55 |     0   (0)| 00:00:01 |
+|   3 |    MERGE JOIN CARTESIAN |             |     1 |    55 |     0   (0)| 00:00:01 |
+|   4 |     MERGE JOIN CARTESIAN|             |     1 |    47 |     0   (0)| 00:00:01 |
+|   5 |      FIXED TABLE FULL   | X$KCCDI     |     1 |    47 |     0   (0)| 00:00:01 |
+|   6 |      BUFFER SORT        |             |     1 |       |     0   (0)| 00:00:01 |
+|   7 |       FIXED TABLE FULL  | X$KCCDI2    |     1 |       |     0   (0)| 00:00:01 |
+|   8 |     BUFFER SORT         |             |     1 |     8 |     0   (0)| 00:00:01 |
+|   9 |      FIXED TABLE FULL   | X$KSUXSINST |     1 |     8 |     0   (0)| 00:00:01 |
+|  10 |    BUFFER SORT          |             |     1 |       |     0   (0)| 00:00:01 |
+|  11 |     FIXED TABLE FULL    | X$QUIESCE   |     1 |       |     0   (0)| 00:00:01 |
+|  12 |   BUFFER SORT           |             |     1 |    11 |     0   (0)| 00:00:01 |
+|* 13 |    FIXED TABLE FULL     | X$KVIT      |     1 |    11 |     0   (0)| 00:00:01 |
+---------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+  13 - filter("KVITTAG"='kcbwst')
+
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          0  consistent gets
+          0  physical reads
+          0  redo size
+        762  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          4  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column instance	  format a8 head instance
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select i.instance_name				      as instance
+  2  , i.host_name					     as hostname
+  3  , to_char ( i.startup_time, 'YYYY-MON-DD HH24:MI:SS' ) as started
+  4  , i.status
+  5  , count (*) as sessions
+  6  from gv$instance i
+  7  	, gv$session s
+  8  where i.inst_id = s.inst_id
+  9  group by i.instance_name, i.host_name, i.startup_time, i.status
+ 10  order by 1, 2, 3 ;
+
+instance HOSTNAME   STARTED               STATUS            SESSIONS
+-------- ---------- --------------------- --------------- ----------
+dwhdb01  alp-dbs000 2021-NOV-18 10:17:21  OPEN                   269
+         04.alfa.lo
+         cal
+
+Verstreken: 00:00:00.01
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1868206112
+
+-------------------------------------------------------------------------------------------------
+| Id  | Operation                     | Name            | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT              |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   1 |  SORT ORDER BY                |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   2 |   HASH GROUP BY               |                 |     1 |    82 |     2 (100)| 00:00:01 |
+|   3 |    MERGE JOIN CARTESIAN       |                 |     1 |    82 |     0   (0)| 00:00:01 |
+|*  4 |     HASH JOIN                 |                 |     1 |    82 |     0   (0)| 00:00:01 |
+|   5 |      NESTED LOOPS             |                 |     1 |    36 |     0   (0)| 00:00:01 |
+|   6 |       NESTED LOOPS            |                 |    45 |  1035 |     0   (0)| 00:00:01 |
+|   7 |        MERGE JOIN CARTESIAN   |                 |    45 |   855 |     0   (0)| 00:00:01 |
+|*  8 |         FIXED TABLE FULL      | X$KVIT          |     1 |    11 |     0   (0)| 00:00:01 |
+|   9 |         BUFFER SORT           |                 |    45 |   360 |     0   (0)| 00:00:01 |
+|  10 |          FIXED TABLE FULL     | X$KSLWT         |    45 |   360 |     0   (0)| 00:00:01 |
+|* 11 |        FIXED TABLE FIXED INDEX| X$KSLED (ind:2) |     1 |     4 |     0   (0)| 00:00:01 |
+|* 12 |       FIXED TABLE FIXED INDEX | X$KSUSE (ind:1) |     1 |    13 |     0   (0)| 00:00:01 |
+|  13 |      FIXED TABLE FULL         | X$KSUXSINST     |     1 |    46 |     0   (0)| 00:00:01 |
+|  14 |     BUFFER SORT               |                 |     1 |       |     2 (100)| 00:00:01 |
+|  15 |      FIXED TABLE FULL         | X$QUIESCE       |     1 |       |     0   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   4 - access("KS"."INST_ID"="S"."INST_ID")
+   8 - filter("KVITTAG"='kcbwst')
+  11 - filter("W"."KSLWTEVT"="E"."INDX")
+  12 - filter("S"."INDX"="W"."KSLWTSID" AND BITAND("S"."KSUSEFLG",1)<>0 AND
+              BITAND("S"."KSSPAFLG",1)<>0)
+
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          0  consistent gets
+          0  physical reads
+          0  redo size
+        644  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          3  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > rem CDB/PDB
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column con_id format A10
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > column con_name format A20
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select
+  2    sys_context('USERENV', 'CON_ID') as con_id,
+  3    sys_context('USERENV', 'CON_NAME') as con_name
+  4  from dual ;
+
+CON_ID     CON_NAME
+---------- --------------------
+0          dwhdb01
+Verstreken: 00:00:00.00
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1388734953
+
+-----------------------------------------------------------------
+| Id  | Operation        | Name | Rows  | Cost (%CPU)| Time     |
+-----------------------------------------------------------------
+|   0 | SELECT STATEMENT |      |     1 |     3   (0)| 00:00:01 |
+|   1 |  FAST DUAL       |      |     1 |     3   (0)| 00:00:01 |
+-----------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          0  consistent gets
+          0  physical reads
+          0  redo size
+        419  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- need a blank line...
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt
+
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > -- select '' from dual;
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > set feedb on
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt now compare the timigs and the reported IO,
+now compare the timigs and the reported IO,
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > prompt then check the AWR..
+then check the AWR..
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+426-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > spool off

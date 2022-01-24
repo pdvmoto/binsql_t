@@ -1,0 +1,501 @@
+
+DATABASE   curr_ins CREATED               ARCH   ROLE     PROT_MOD PROT_LEV
+---------- -------- --------------------- ------ -------- -------- --------
+DWHDB01    dwhdb01  2013-DEC-18 16:28:40  ARCHI  PRIMARY  MAX PERF MAXIMU
+Verstreken: 00:00:00.00
+
+instance HOSTNAME   STARTED               STATUS         SESSIONS
+-------- ---------- --------------------- ------------ ----------
+dwhdb01  alp-dbs000 2021-NOV-18 10:17:21  OPEN                205
+         04.alfa.lo
+         cal
+
+Verstreken: 00:00:00.00
+
+CON_ID     CON_NAME
+---------- --------------------
+0          dwhdb01
+Verstreken: 00:00:00.00
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+ full(t)   noparallel (t) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:09:32.70
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1466847788
+
+---------------------------------------------------------------------------------------------------------
+| Id  | Operation            | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |
+---------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |                          |     1 |    11M  (1)| 00:07:26 |       |       |
+|   1 |  SORT AGGREGATE      |                          |     1 |            |          |       |       |
+|   2 |   PARTITION RANGE ALL|                          |  2106M|    11M  (1)| 00:07:26 |     1 |1048575|
+|   3 |    TABLE ACCESS FULL | DWH_005_E31_DETAIL_REGEL |  2106M|    11M  (1)| 00:07:26 |     1 |1048575|
+---------------------------------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+        190  recursive calls
+          3  db block gets
+   15286993  consistent gets
+   15285374  physical reads
+       2584  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+         11  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t, 1) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:08:42.44
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 1466847788
+
+---------------------------------------------------------------------------------------------------------
+| Id  | Operation            | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |
+---------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |                          |     1 |    11M  (1)| 00:07:26 |       |       |
+|   1 |  SORT AGGREGATE      |                          |     1 |            |          |       |       |
+|   2 |   PARTITION RANGE ALL|                          |  2106M|    11M  (1)| 00:07:26 |     1 |1048575|
+|   3 |    TABLE ACCESS FULL | DWH_005_E31_DETAIL_REGEL |  2106M|    11M  (1)| 00:07:26 |     1 |1048575|
+---------------------------------------------------------------------------------------------------------
+
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+   15286555  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t, 2) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:04:58.37
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |  6337K  (1)| 00:04:08 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|  6337K  (1)| 00:04:08 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|  6337K  (1)| 00:04:08 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 2 because of table property
+
+
+Statistics
+----------------------------------------------------------
+          7  recursive calls
+          0  db block gets
+   15293582  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t, 4) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:03:20.35
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |  3168K  (1)| 00:02:04 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|  3168K  (1)| 00:02:04 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|  3168K  (1)| 00:02:04 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 4 because of table property
+
+
+Statistics
+----------------------------------------------------------
+         15  recursive calls
+          0  db block gets
+   15293582  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t, 8) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:02:26.10
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |  1584K  (1)| 00:01:02 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|  1584K  (1)| 00:01:02 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|  1584K  (1)| 00:01:02 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 8 because of table property
+
+
+Statistics
+----------------------------------------------------------
+         29  recursive calls
+          0  db block gets
+   15293582  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t,16) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:02:00.12
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |   792K  (1)| 00:00:31 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|   792K  (1)| 00:00:31 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|   792K  (1)| 00:00:31 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 16 because of table property
+
+
+Statistics
+----------------------------------------------------------
+         57  recursive calls
+          0  db block gets
+   15294946  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t,32) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:55.52
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |   396K  (1)| 00:00:16 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|   396K  (1)| 00:00:16 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|   396K  (1)| 00:00:16 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 32 because of table property
+
+
+Statistics
+----------------------------------------------------------
+        113  recursive calls
+          0  db block gets
+   15298424  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > select /*+  full(t) parallel (t,64) */ count(*) from BIDWH.DWH_005_E31_DETAIL_REGEL  t;
+
+  COUNT(*)
+----------
+2113500606
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:38.09
+
+Uitvoeringspan
+----------------------------------------------------------
+Plan hash value: 2334782173
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+| Id  | Operation              | Name                     | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-O
+UT| PQ Distrib |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+|   0 | SELECT STATEMENT       |                          |     1 |   198K  (1)| 00:00:08 |       |       |        |
+  |            |
+
+|   1 |  SORT AGGREGATE        |                          |     1 |            |          |       |       |        |
+  |            |
+
+|   2 |   PX COORDINATOR       |                          |       |            |          |       |       |        |
+  |            |
+
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                 |     1 |            |          |       |       |  Q1,00 | P->
+S | QC (RAND)  |
+
+|   4 |     SORT AGGREGATE     |                          |     1 |            |          |       |       |  Q1,00 | PCW
+P |            |
+
+|   5 |      PX BLOCK ITERATOR |                          |  2106M|   198K  (1)| 00:00:08 |     1 |1048575|  Q1,00 | PCW
+C |            |
+
+|   6 |       TABLE ACCESS FULL| DWH_005_E31_DETAIL_REGEL |  2106M|   198K  (1)| 00:00:08 |     1 |1048575|  Q1,00 | PCW
+P |            |
+
+------------------------------------------------------------------------------------------------------------------------
+----------------
+
+
+Note
+-----
+   - Degree of Parallelism is 48 because of table property
+
+
+Statistics
+----------------------------------------------------------
+        193  recursive calls
+          0  db block gets
+   15304159  consistent gets
+   15285214  physical reads
+          0  redo size
+        360  bytes sent via SQL*Net to client
+        484  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > 
+408-BI910599 @ DWHDB01 @ alp-dbs00004 (PROD) > spool off

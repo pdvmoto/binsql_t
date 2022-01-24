@@ -1,0 +1,436 @@
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > set  timing on
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > set echo on
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > set autotrace on
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > prompt with no hints..
+with no hints..
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+2041752380                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:10:20.54
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 4211789783                                                                                                     
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+| Id  | Operation              | Name                      | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-OUT| PQ 
+Distrib |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+|   0 | SELECT STATEMENT       |                           |     1 |  2006K  (1)| 00:01:19 |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   1 |  SORT AGGREGATE        |                           |     1 |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   2 |   PX COORDINATOR       |                           |       |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                  |     1 |            |          |       |       |  Q1,00 | P->S | QC 
+(RAND)  |                                                                                                                       
+                                                                                                                                
+|   4 |     SORT AGGREGATE     |                           |     1 |            |          |       |       |  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+|   5 |      PX BLOCK ITERATOR |                           |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWC |    
+        |                                                                                                                       
+                                                                                                                                
+|   6 |       TABLE ACCESS FULL| DWH_001_PROJ_SNAPSHOT_DET |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 48 because of table property                                                                      
+
+
+Statistics
+----------------------------------------------------------                                                                      
+        192  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+  129858121  consistent gets                                                                                                    
+  114853257  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          0  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+1878271063                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:51.98
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 3688640101                                                                                                     
+                                                                                                                                
+----------------------------------------------------------------------------------------------------------------------          
+| Id  | Operation              | Name                   | Rows  | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |          
+----------------------------------------------------------------------------------------------------------------------          
+|   0 | SELECT STATEMENT       |                        |     1 |  3977K  (1)| 00:02:36 |        |      |            |          
+|   1 |  SORT AGGREGATE        |                        |     1 |            |          |        |      |            |          
+|   2 |   PX COORDINATOR       |                        |       |            |          |        |      |            |          
+|   3 |    PX SEND QC (RANDOM) | :TQ10000               |     1 |            |          |  Q1,00 | P->S | QC (RAND)  |          
+|   4 |     SORT AGGREGATE     |                        |     1 |            |          |  Q1,00 | PCWP |            |          
+|   5 |      PX BLOCK ITERATOR |                        |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWC |            |          
+|   6 |       TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWP |            |          
+----------------------------------------------------------------------------------------------------------------------          
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 2 because of table property                                                                       
+
+
+Statistics
+----------------------------------------------------------                                                                      
+          6  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+    9531256  consistent gets                                                                                                    
+    9522697  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          0  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > prompt with foced parallel, automatic DoP
+with foced parallel, automatic DoP
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+2041752380                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:04:00.71
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 1205439302                                                                                                     
+                                                                                                                                
+---------------------------------------------------------------------------------                                               
+| Id  | Operation             | Name            | Rows  | Cost (%CPU)| Time     |                                               
+---------------------------------------------------------------------------------                                               
+|   0 | SELECT STATEMENT      |                 |     1 |  5923K  (1)| 00:03:52 |                                               
+|   1 |  SORT AGGREGATE       |                 |     1 |            |          |                                               
+|   2 |   INDEX FAST FULL SCAN| PK_001_DWH_PRSD |  2035M|  5923K  (1)| 00:03:52 |                                               
+---------------------------------------------------------------------------------                                               
+
+
+Statistics
+----------------------------------------------------------                                                                      
+          1  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+    8082136  consistent gets                                                                                                    
+    8076208  physical reads                                                                                                     
+     489288  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          0  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+1878271063                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:03:16.46
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 2720662536                                                                                                     
+                                                                                                                                
+-------------------------------------------------------------------------------------                                           
+| Id  | Operation          | Name                   | Rows  | Cost (%CPU)| Time     |                                           
+-------------------------------------------------------------------------------------                                           
+|   0 | SELECT STATEMENT   |                        |     1 |  7161K  (1)| 00:04:40 |                                           
+|   1 |  SORT AGGREGATE    |                        |     1 |            |          |                                           
+|   2 |   TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |  1878M|  7161K  (1)| 00:04:40 |                                           
+-------------------------------------------------------------------------------------                                           
+
+
+Statistics
+----------------------------------------------------------                                                                      
+          1  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+    9522797  consistent gets                                                                                                    
+    9522697  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          0  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > prompt with foced parallel,  DoP=2
+with foced parallel,  DoP=2
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t, 2) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+2041752380                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:10:18.22
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 4211789783                                                                                                     
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+| Id  | Operation              | Name                      | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-OUT| PQ 
+Distrib |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+|   0 | SELECT STATEMENT       |                           |     1 |  2006K  (1)| 00:01:19 |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   1 |  SORT AGGREGATE        |                           |     1 |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   2 |   PX COORDINATOR       |                           |       |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                  |     1 |            |          |       |       |  Q1,00 | P->S | QC 
+(RAND)  |                                                                                                                       
+                                                                                                                                
+|   4 |     SORT AGGREGATE     |                           |     1 |            |          |       |       |  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+|   5 |      PX BLOCK ITERATOR |                           |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWC |    
+        |                                                                                                                       
+                                                                                                                                
+|   6 |       TABLE ACCESS FULL| DWH_001_PROJ_SNAPSHOT_DET |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 48 because of table property                                                                      
+
+
+Statistics
+----------------------------------------------------------                                                                      
+         87  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+  129858229  consistent gets                                                                                                    
+  114853257  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          1  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t, 2) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+1878271063                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:52.40
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 3688640101                                                                                                     
+                                                                                                                                
+----------------------------------------------------------------------------------------------------------------------          
+| Id  | Operation              | Name                   | Rows  | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |          
+----------------------------------------------------------------------------------------------------------------------          
+|   0 | SELECT STATEMENT       |                        |     1 |  3977K  (1)| 00:02:36 |        |      |            |          
+|   1 |  SORT AGGREGATE        |                        |     1 |            |          |        |      |            |          
+|   2 |   PX COORDINATOR       |                        |       |            |          |        |      |            |          
+|   3 |    PX SEND QC (RANDOM) | :TQ10000               |     1 |            |          |  Q1,00 | P->S | QC (RAND)  |          
+|   4 |     SORT AGGREGATE     |                        |     1 |            |          |  Q1,00 | PCWP |            |          
+|   5 |      PX BLOCK ITERATOR |                        |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWC |            |          
+|   6 |       TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWP |            |          
+----------------------------------------------------------------------------------------------------------------------          
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 2 because of table property                                                                       
+
+
+Statistics
+----------------------------------------------------------                                                                      
+         15  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+    9531284  consistent gets                                                                                                    
+    9522697  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          1  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > prompt with foced parallel,  DoP=4
+with foced parallel,  DoP=4
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t, 4) */ count (*) from BIDWH.DWH_001_PROJ_SNAPSHOT_DET t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+2041752380                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:10:29.85
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 4211789783                                                                                                     
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+| Id  | Operation              | Name                      | Rows  | Cost (%CPU)| Time     | Pstart| Pstop |    TQ  |IN-OUT| PQ 
+Distrib |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+|   0 | SELECT STATEMENT       |                           |     1 |  2006K  (1)| 00:01:19 |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   1 |  SORT AGGREGATE        |                           |     1 |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   2 |   PX COORDINATOR       |                           |       |            |          |       |       |        |      |    
+        |                                                                                                                       
+                                                                                                                                
+|   3 |    PX SEND QC (RANDOM) | :TQ10000                  |     1 |            |          |       |       |  Q1,00 | P->S | QC 
+(RAND)  |                                                                                                                       
+                                                                                                                                
+|   4 |     SORT AGGREGATE     |                           |     1 |            |          |       |       |  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+|   5 |      PX BLOCK ITERATOR |                           |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWC |    
+        |                                                                                                                       
+                                                                                                                                
+|   6 |       TABLE ACCESS FULL| DWH_001_PROJ_SNAPSHOT_DET |  2035M|  2006K  (1)| 00:01:19 |     1 |1048575|  Q1,00 | PCWP |    
+        |                                                                                                                       
+                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------
+---------                                                                                                                       
+                                                                                                                                
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 48 because of table property                                                                      
+
+
+Statistics
+----------------------------------------------------------                                                                      
+        197  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+  129860343  consistent gets                                                                                                    
+  114853257  physical reads                                                                                                     
+          0  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          1  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > select /*+ noparallel(t, 4) */ count (*) from BISTO.H514_RESOURCE_TL_STEP1 t ;
+
+  COUNT(*)                                                                                                                      
+----------                                                                                                                      
+1878271063                                                                                                                      
+
+1 rij is geselecteerd.
+
+Verstreken: 00:01:53.67
+
+Uitvoeringspan
+----------------------------------------------------------                                                                      
+Plan hash value: 3688640101                                                                                                     
+                                                                                                                                
+----------------------------------------------------------------------------------------------------------------------          
+| Id  | Operation              | Name                   | Rows  | Cost (%CPU)| Time     |    TQ  |IN-OUT| PQ Distrib |          
+----------------------------------------------------------------------------------------------------------------------          
+|   0 | SELECT STATEMENT       |                        |     1 |  3977K  (1)| 00:02:36 |        |      |            |          
+|   1 |  SORT AGGREGATE        |                        |     1 |            |          |        |      |            |          
+|   2 |   PX COORDINATOR       |                        |       |            |          |        |      |            |          
+|   3 |    PX SEND QC (RANDOM) | :TQ10000               |     1 |            |          |  Q1,00 | P->S | QC (RAND)  |          
+|   4 |     SORT AGGREGATE     |                        |     1 |            |          |  Q1,00 | PCWP |            |          
+|   5 |      PX BLOCK ITERATOR |                        |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWC |            |          
+|   6 |       TABLE ACCESS FULL| H514_RESOURCE_TL_STEP1 |  1878M|  3977K  (1)| 00:02:36 |  Q1,00 | PCWP |            |          
+----------------------------------------------------------------------------------------------------------------------          
+                                                                                                                                
+Note                                                                                                                            
+-----                                                                                                                           
+   - Degree of Parallelism is 2 because of table property                                                                       
+
+
+Statistics
+----------------------------------------------------------                                                                      
+         15  recursive calls                                                                                                    
+          0  db block gets                                                                                                      
+    9531284  consistent gets                                                                                                    
+    9522697  physical reads                                                                                                     
+       2472  redo size                                                                                                          
+        360  bytes sent via SQL*Net to client                                                                                   
+        484  bytes received via SQL*Net from client                                                                             
+          2  SQL*Net roundtrips to/from client                                                                                  
+          1  sorts (memory)                                                                                                     
+          0  sorts (disk)                                                                                                       
+          1  rows processed                                                                                                     
+
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > 
+BI910599 @ DWHDB01 @ ala-dbs00004.alfa.local > spool off

@@ -1,0 +1,1930 @@
+DOC>
+DOC>	    Generate quick database overview
+DOC>	    spoolfile : db_info.lst
+DOC>
+DOC>	    Version 11g: 26/04/2007
+DOC>
+DOC>#
+
+General Information
+--------------------
+Database: DWHDB01 (ARCHIVELOG; FORCE_LOGGING: YES; FLASHBACK_ON: NO) DBID:1771665784
+Version : Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+Created : 18-DEC-2013 16:28:40
+Started : 18-NOV-2021 10:17:21 PLATFORM_NAME: Linux x86 64-bit
+Checked : 19-NOV-2021 09:23:28     HOST_NAME: alp-dbs00004.alfa.local
+Run By  : BI910599
+
+
+DOC>	    info02.sql
+DOC>
+DOC>	    Sizing info: Sizes and Kb usage of tablespaces
+DOC>#
+
+TABLESPACE_NAME                       KFREE        KUSED       KTOTAL PERC_FREE
+------------------------------ ------------ ------------ ------------ ---------
+APEX_20                               32064       300736       332800      9.63
+AUDIT_AUX                            689600     13697600     14387200      4.79
+BIADBA_DATA                       270085888     14560416    284646304     94.88
+BIADBA_INDEX                         101376         1024       102400     99.00
+BIADM_DATA                         12998400    283546848    296545248      4.38
+BIADM_INDEX                           70976      1209024      1280000      5.55
+BIBCK_DATA                           101376         1024       102400     99.00
+BIDWH_DATA                        234925824   1934268144   2169193968     10.83
+BIDWH_INDEX                       147434880    575407616    722842496     20.40
+BIOTR_DATA                            96576         5824       102400     94.31
+BIOTR_INDEX                          101376         1024       102400     99.00
+BIPRE_DATA                         32726208     37742400     70468608     46.44
+BIPRE_INDEX                        16811264      5972736     22784000     73.79
+BIREP_DATA                         42604224     16446784     59051008     72.15
+BIREP_INDEX                        21313984      4798016     26112000     81.63
+BISRC_DATA                          1704064     50998144     52702208      3.23
+BISRC_INDEX                         5251904      3136704      8388608     62.61
+BISTI_DATA                        169187200   1860050624   2029237824      8.34
+BISTI_INDEX                        11493248    371249248    382742496      3.00
+BISTO_DATA                         28344384    650296096    678640480      4.18
+BISTO_INDEX                        38620608     16085568     54706176     70.60
+GEN_DATA                              14976        51584        66560     22.50
+GEN_INDEX                              4544        21056        25600     17.75
+INT_DATA                           37476032       268608     37744640     99.29
+INT_INDEX                              2048         3072         5120     40.00
+SYSAUX                               847424     16878016     17725440      4.78
+SYSTEM                                28800      4681600      4710400       .61
+TDPALG_DATA                          264384      2881344      3145728      8.40
+TDPALG_INDEX                         101376         1024       102400     99.00
+UNDO_BIG                          144587712     34718784    179306496     80.64
+USERS                               1198912      1411008      2609920     45.94
+
+                               ------------ ------------ ------------ ---------
+
+                        Total:   1219236864   5900676464   7119913328     17.12
+
+SP2-0310: Kan bestand "cangrow.sql" niet openen.
+DOC>	info3_v8.sql
+DOC>
+DOC>	Fragmentation: Tablespaces versus Free extents,
+DOC>	should give general impression of fragmentation.
+DOC>#
+
+TabSp. Vs KBytes -->  COUNT MIN          AVG          MAX          SUM
+-------------------- ------ ------------ ------------ ------------ ------------
+BIDWH_INDEX             865           64      170,445    4,063,232  147,434,880
+BIADM_DATA              163           64       79,745    2,694,144   12,998,400
+BIADM_INDEX               1       70,976       70,976       70,976       70,976
+UNDO_BIG               1687           64       85,707    4,063,232  144,587,712
+SYSAUX                    2          576      423,712      846,848      847,424
+BIREP_DATA               14          704    3,043,159    4,063,232   42,604,224
+GEN_INDEX                 4          128        1,136        3,072        4,544
+BIOTR_DATA                5           64       19,315       87,040       96,576
+BIOTR_INDEX               1      101,376      101,376      101,376      101,376
+AUDIT_AUX                 2          448      344,800      689,152      689,600
+BISTI_INDEX              39        1,024      294,699    2,567,168   11,493,248
+BISTO_INDEX             668           64       57,815    4,002,816   38,620,608
+TDPALG_DATA               4          192       66,096      263,168      264,384
+USERS                   274           64        4,376      134,912    1,198,912
+BIPRE_DATA              353           64       92,706    4,063,232   32,725,184
+INT_INDEX                 1        2,048        2,048        2,048        2,048
+SYSTEM                    2          128       14,400       28,672       28,800
+BIADBA_DATA            2154           64      125,388    4,063,232  270,085,888
+BISTI_DATA           ######           64          840       93,056  169,187,200
+BISRC_INDEX             124           64       42,354      380,928    5,251,904
+APEX_20                   1       32,064       32,064       32,064       32,064
+BIADBA_INDEX              1      101,376      101,376      101,376      101,376
+BISTO_DATA            14831           64        1,911    1,419,264   28,344,384
+GEN_DATA                 13           64        1,152        6,144       14,976
+BIREP_INDEX               7          448    3,044,855    4,063,232   21,313,984
+BIPRE_INDEX              58          256      289,849    3,867,648   16,811,264
+BISRC_DATA                5           64      340,813    1,702,912    1,704,064
+BIDWH_DATA           ######           64          920       65,536  234,925,824
+INT_DATA                 19          128    1,972,423    4,063,232   37,476,032
+BIBCK_DATA                1      101,376      101,376      101,376      101,376
+TDPALG_INDEX              1      101,376      101,376      101,376      101,376
+
+DOC>	info03_v8_v9.sql section 2
+DOC>
+DOC>	Immediate Risks due to fragmentation:
+DOC>	All next_extents over 50 percent of the max free_space.
+DOC>	For Non Autoextensible datafiles.
+DOC>
+DOC>#
+
+Er zijn geen rijen geselecteerd.
+
+
+DOC>	info04_v8.sql
+DOC>
+DOC>	File overview: datafiles, logfiles, controlfiles rollbacksegments.
+DOC>#
+
+                                                                                                        AUTO
+DATAFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME TEMP STATUS EXTEND
+------------------------------------------------------------- ------------- --------------- ---- ------ ------
+/data01/dwhdb01/system01.dbf                                      4600    0 SYSTEM               SYSTEM YES
+/data01/dwhdb01/sysaux01.dbf                                     17310    0 SYSAUX               ONLINE YES
+/data01/dwhdb01/biadba_d_07.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/users01.dbf                                       2548  768 USERS                ONLINE YES
+/data01/dwhdb01/sys_audit_aux_d01.dbf                            14050    0 AUDIT_AUX            ONLINE YES
+/index01/dwhdb01/birep_i_01.dbf                                  25500    0 BIREP_INDEX          ONLINE YES
+/data01/dwhdb01/birep_d_01.dbf                                   32767    0 BIREP_DATA           ONLINE YES
+/data01/dwhdb01/biadba_d_01.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/index01/dwhdb01/biadwh_i_01.dbf                                   100    0 BIADBA_INDEX         ONLINE YES
+/data01/dwhdb01/bidwh_d_01.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_01.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_01.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_01.dbf                                  32767    0 BISTI_INDEX          ONLINE NO
+/data01/dwhdb01/bisto_d_01.dbf                                   32767    0 BISTO_DATA           ONLINE YES
+/index01/dwhdb01/bisto_i_01.dbf                                  28700    0 BISTO_INDEX          ONLINE YES
+/data01/dwhdb01/bipre_d_01.dbf                                   32767    0 BIPRE_DATA           ONLINE YES
+/index01/dwhdb01/bispre_i_01.dbf                                 22250    0 BIPRE_INDEX          ONLINE YES
+/data01/dwhdb01/biadm_d_01.dbf                                   32767    0 BIADM_DATA           ONLINE YES
+/index01/dwhdb01/biadm_i_01.dbf                                   1250    0 BIADM_INDEX          ONLINE YES
+/data01/dwhdb01/bisrc_d_01.dbf                                   32767    0 BISRC_DATA           ONLINE YES
+/index01/dwhdb01/bisrc_i_01.dbf                                   8192    0 BISRC_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_02.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_03.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_04.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_06.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_05.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_03.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_02.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisto_d_02.dbf                                   32767    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_03.dbf                                   32767    0 BISTO_DATA           ONLINE YES
+/index01/dwhdb01/bisto_i_02.dbf                                  24524    0 BISTO_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_02.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_04.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_03.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_02.dbf                                  32767    0 BISTI_INDEX          ONLINE NO
+/data01/dwhdb01/bisto_d_05.dbf                                   32767    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_04.dbf                                   32767    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/biadba_d_06.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_08.dbf                                  24000    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/bisti_d_07.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_09.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_05.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_06.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_07.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_08.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_06.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_07.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_04.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_08.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_10.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bipre_d_02.dbf                                   28450    0 BIPRE_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_09.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_11.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_13.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/gen_data_01.dbf                                     65    0 GEN_DATA             ONLINE YES
+/index01/dwhdb01/gen_index_01.dbf                                   25    0 GEN_INDEX            ONLINE YES
+
+                                                                                                        AUTO
+DATAFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME TEMP STATUS EXTEND
+------------------------------------------------------------- ------------- --------------- ---- ------ ------
+/data01/dwhdb01/int_data_01.dbf                                  32764    0 INT_DATA             ONLINE YES
+/index01/dwhdb01/int_index_01.dbf                                    5    0 INT_INDEX            ONLINE YES
+/data01/dwhdb01/bidwh_d_12.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_10.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_05.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/biadm_d_02.dbf                                   32767    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_11.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_13.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_12.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_06.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_15.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_14.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_14.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_16.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_15.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_07.dbf                                  32720    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bibck_d_01.dbf                                     100    0 BIBCK_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_16.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_17.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/biotr_d_1.dbf                                      100    0 BIOTR_DATA           ONLINE YES
+/data01/dwhdb01/biotr_i_1.dbf                                      100    0 BIOTR_INDEX          ONLINE YES
+/data01/dwhdb01/bisrc_d_02.dbf                                   18700    0 BISRC_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_17.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_18.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_08.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bisti_i_03.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_19.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_18.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_20.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_19.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_09.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_20.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_21.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_21.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_22.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/biadba_d_02.dbf                                  32767    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_03.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_04.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/bisti_d_22.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_23.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_24.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_23.dbf                                   32767    0 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_04.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/tdpalg_d_01.dbf                                   3072    0 TDPALG_DATA          ONLINE YES
+/data01/dwhdb01/bidwh_d_47.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_48.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_41.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_42.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/tdpalg_i_01.dbf                                   100    0 TDPALG_INDEX         ONLINE YES
+/index01/dwhdb01/bisti_i_10.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_49.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_50.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_43.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_26.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_25.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_05.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+
+                                                                                                        AUTO
+DATAFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME TEMP STATUS EXTEND
+------------------------------------------------------------- ------------- --------------- ---- ------ ------
+/index01/dwhdb01/bidwh_i_11.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_10.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisto_d_08.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_28.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_27.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_24.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_29.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_06.dbf                                  32767 1008 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_25.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/int_data_02.dbf                                   4096    0 INT_DATA             ONLINE YES
+/data01/dwhdb01/bidwh_d_30.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_26.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_27.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_10.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_09.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_31.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_34.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_33.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_32.dbf                                   32767    0 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_12.dbf                                  32767    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bisti_i_07.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/birep_d_02.dbf                                   21300    0 BIREP_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_28.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_13.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bisti_i_08.dbf                                  32767 1008 BISTI_INDEX          ONLINE YES
+/index01/dwhdb01/bisto_i_03.dbf                                    100    0 BISTO_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_14.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_29.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_30.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_31.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_35.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_36.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_11.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_12.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_32.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_33.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_37.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_38.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_39.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_40.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_34.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_09.dbf                                  32767    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_35.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_36.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_41.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_42.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_15.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_16.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_43.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_44.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_45.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_37.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_38.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_39.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_40.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_46.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+
+                                                                                                        AUTO
+DATAFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME TEMP STATUS EXTEND
+------------------------------------------------------------- ------------- --------------- ---- ------ ------
+/index01/dwhdb01/bisti_i_11.dbf                                  15700    0 BISTI_INDEX          ONLINE YES
+/index01/dwhdb01/bisti_i_12.dbf                                  10700    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bipre_d_03.dbf                                    3900    0 BIPRE_DATA           ONLINE YES
+/data01/dwhdb01/bipre_d_04.dbf                                    3700    0 BIPRE_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_44.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_13.dbf                                   9800    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_51.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_17.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_45.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_46.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_52.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bisti_i_14.dbf                                   9900    0 BISTI_INDEX          ONLINE YES
+/data01/dwhdb01/bisti_d_47.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_53.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_48.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_49.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_54.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_18.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_55.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_50.dbf                                   32767 1008 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_03.dbf                                   32767 1008 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_56.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_57.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_58.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_13.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_14.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_59.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_19.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisto_d_15.dbf                                   32767 1008 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_60.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_16.dbf                                   31800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/birep_d_03.dbf                                    3600    0 BIREP_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_20.dbf                                  32767 1008 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bidwh_d_61.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_62.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/biadba_d_05.dbf                                  32767 1008 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/bidwh_d_63.dbf                                   32767 1008 BIDWH_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_21.dbf                                  23100    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bisto_i_04.dbf                                    100    0 BISTO_INDEX          ONLINE YES
+/data01/dwhdb01/bisto_d_17.dbf                                   30200    0 BISTO_DATA           ONLINE YES
+/index01/dwhdb01/bidwh_i_23.dbf                                  12800    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_22.dbf                                  12600    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_24.dbf                                   2000    0 BIDWH_INDEX          ONLINE YES
+/index01/dwhdb01/bidwh_i_25.dbf                                    100    0 BIDWH_INDEX          ONLINE YES
+/data01/dwhdb01/bisto_d_18.dbf                                   22900    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_19.dbf                                   24000    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_20.dbf                                   26200    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/apex_20_01.dbf                                     325    0 APEX_20              ONLINE YES
+/data01/dwhdb01/bisto_d_21.dbf                                    8736    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_22.dbf                                    9088    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_23.dbf                                    9696    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/undo_big.dbf                                    175104    0 UNDO_BIG             ONLINE YES
+/data01/dwhdb01/biadba_d_09.dbf                                  24000    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_10.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_11.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_12.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+
+                                                                                                        AUTO
+DATAFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME TEMP STATUS EXTEND
+------------------------------------------------------------- ------------- --------------- ---- ------ ------
+/data01/dwhdb01/biadba_d_13.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_14.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/biadba_d_15.dbf                                    100    0 BIADBA_DATA          ONLINE YES
+/data01/dwhdb01/bisti_d_51.dbf                                   28600    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_52.dbf                                   29600    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_53.dbf                                   30600    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_54.dbf                                   31300    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_55.dbf                                   32500    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_04.dbf                                   32767 1008 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_05.dbf                                   32724    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_56.dbf                                   19100    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_57.dbf                                   19900    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_06.dbf                                   32767    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_07.dbf                                   32767    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_08.dbf                                   32767    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_58.dbf                                   12800    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_59.dbf                                   12900    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_60.dbf                                   12700    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_61.dbf                                   12600    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_62.dbf                                   13300    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_63.dbf                                   14100    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_64.dbf                                   14200    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_65.dbf                                   15000    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_66.dbf                                   15800    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_67.dbf                                   16600    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_64.dbf                                    1600    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_65.dbf                                    1800    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_66.dbf                                    2000    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_67.dbf                                    1900    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_68.dbf                                    2400    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_69.dbf                                    2200    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_70.dbf                                    2500    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_71.dbf                                    2700    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_72.dbf                                    3100    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_73.dbf                                    3500    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_74.dbf                                    3800    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_75.dbf                                    4000    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_76.dbf                                    4700    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_77.dbf                                    6100    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bidwh_d_78.dbf                                   11700    0 BIDWH_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_24.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_25.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_26.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_27.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_28.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_29.dbf                                     800    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_30.dbf                                     900    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_31.dbf                                     900    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_32.dbf                                     900    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/bisto_d_33.dbf                                    1100    0 BISTO_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_09.dbf                                   14400    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_68.dbf                                    3700    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_69.dbf                                    3800    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/bisti_d_70.dbf                                    4200    0 BISTI_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_10.dbf                                    6500    0 BIADM_DATA           ONLINE YES
+/data01/dwhdb01/biadm_d_11.dbf                                    6600    0 BIADM_DATA           ONLINE YES
+
+280 rijen zijn geselecteerd.
+
+
+                                            Total of datafiles 6953040  368
+
+Using a Tempfile: Only Possible from 8i And Up
+
+                                                                                                       AUTO
+TEMPFILE_NAME                                                 SIZE: Mb + Kb TABLESPACE_NAME STATUS     EXTEND
+------------------------------------------------------------- ------------- --------------- ---------- ------
+/oratmp/dwhdb01/temp01.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp02.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp03.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp04.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp05.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp06.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp07.dbf                                       32767 1008 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp08.dbf                                       32767    0 TEMP            ONLINE     YES
+/oratmp/dwhdb01/temp09.dbf                                         100    0 TEMP            ONLINE     YES
+
+9 rijen zijn geselecteerd.
+
+
+LOGFILE_NAME                                                  SIZE: MB     GROUP# STATUS
+------------------------------------------------------------- -------- ---------- ----------------
+/redo01/dwhdb01/redo_g1_m1.rdo                                    1000          1 INACTIVE
+/redo01/dwhdb01/redo_g2_m1.rdo                                    1000          2 INACTIVE
+/redo01/dwhdb01/redo_g3_m1.rdo                                    1000          3 INACTIVE
+/redo01/dwhdb01/redo_g4_m1.rdo                                    1000          4 CURRENT
+/redo01/dwhdb01/redo_g5_m1.rdo                                    1000          5 INACTIVE
+/redo01/dwhdb01/redo_g6_m1.rdo                                    1000          6 INACTIVE
+/redo01/dwhdb01/redo_g7_m1.rdo                                    1000          7 INACTIVE
+/redo02/dwhdb01/redo_g7_m2.rdo                                    1000          7 INACTIVE
+/redo01/dwhdb01/redo_g8_m1.rdo                                    1000          8 INACTIVE
+/redo02/dwhdb01/redo_g8_m2.rdo                                    1000          8 INACTIVE
+/redo01/dwhdb01/redo_g9_m1.rdo                                    1000          9 INACTIVE
+/redo02/dwhdb01/redo_g9_m2.rdo                                    1000          9 INACTIVE
+/redo01/dwhdb01/redo_g11_m1.rdo                                   1000         11 INACTIVE
+/redo01/dwhdb01/redo_g12_m1.rdo                                   1000         12 INACTIVE
+/redo01/dwhdb01/redo_g13_m1.rdo                                   1000         13 INACTIVE
+/redo01/dwhdb01/redo_g14_m1.rdo                                   1000         14 INACTIVE
+/redo01/dwhdb01/redo_g15_m1.rdo                                   1000         15 INACTIVE
+
+                                            Total of logfiles    17000
+
+CONTROLFILE_NAME                                                                  STATUS
+--------------------------------------------------------------------------------- ----------------
+/data01/dwhdb01/control01.ctl                                                     OK
+/index01/dwhdb01/control02.ctl                                                    OK
+
+DOC>	    info05.sql
+DOC>
+DOC>	    Summary of objects per user
+DOC>#
+
+96 users defined in the database.
+
+OWNER           NR_OBJECTS
+--------------- ----------
+AA103282                 3
+APEX_LISTENER           22
+APEX_200100           4040
+APPQOSSYS                5
+BIADM                  700
+BIDAT                  123
+BIDWH                 2975
+BIOTR                   61
+BIPRAM                  58
+BIPRE                 1417
+BIRAPHIS                 1
+BIRUN                    9
+BI_SELECT_DWH_2          2
+_DIS
+
+BISRC                 1016
+BISTI                 4366
+BISTO                15733
+BI910599                 1
+BOUSER                1114
+CTXSYS                 409
+DBMON                    1
+DBSNMP                  57
+FLOWS_FILES             13
+GENERIC                 52
+GSMADMIN_INTERN        108
+AL
+
+INTDBA                  89
+MDSYS                 1884
+OJVMSYS                 20
+ORACLE_OCM               8
+ORDDATA                292
+ORDPLUGINS              10
+ORDS_METADATA          203
+ORDSYS                3157
+OUTLN                   10
+OWBSYS                3222
+OWBSYS_AUDIT            12
+OWF_MGR               1115
+PUBLIC               38257
+SI_INFORMTN_SCH          8
+EMA
+
+SPLMON                 189
+SPOTLIGHT               81
+SYS                  43237
+SYSTEM                 642
+TDPOTR                 187
+WMSYS                  389
+XDB                   1052
+
+OWNER           OBJECT_TYPE     NR_OBJECTS
+--------------- --------------- ----------
+AA103282        INDEX                    1
+                LOB                      1
+                TABLE                    1
+APEX_LISTENER   SYNONYM                 22
+APEX_200100     FUNCTION                 8
+                INDEX                 1705
+                JOB                      8
+                LOB                    221
+                PACKAGE                350
+                PACKAGE BODY           345
+                PROCEDURE               13
+                SEQUENCE                 6
+                SYNONYM                  3
+                TABLE                  483
+                TRIGGER                543
+                TYPE                    29
+                TYPE BODY                5
+                VIEW                   321
+APPQOSSYS       SYNONYM                  1
+                TABLE                    4
+BIADM           FUNCTION                26
+                INDEX                  123
+                INDEX PARTITION        120
+                JOB                     42
+                LOB                      6
+                PACKAGE                 32
+                PACKAGE BODY            31
+                PROCEDURE               15
+                PROGRAM                 42
+                SCHEDULE                24
+                SEQUENCE                52
+                TABLE                  123
+                TABLE PARTITION         24
+                TRIGGER                 20
+                TYPE                     3
+                VIEW                    17
+BIDAT           INDEX                    4
+                PACKAGE                 38
+                PACKAGE BODY            38
+                PROCEDURE                1
+                SEQUENCE                 4
+                TABLE                   36
+                TRIGGER                  1
+                VIEW                     1
+BIDWH           DATABASE LINK            1
+                FUNCTION                 6
+                INDEX                  707
+                INDEX PARTITION        489
+                JOB                      1
+                PACKAGE                348
+                PACKAGE BODY           348
+                PROCEDURE               13
+                PROGRAM                  1
+                SCHEDULE                 3
+                SEQUENCE                18
+                SYNONYM                 41
+                TABLE                  395
+                TABLE PARTITION        570
+                TRIGGER                  1
+                VIEW                    33
+BIOTR           INDEX                   15
+                SEQUENCE                12
+                TABLE                   17
+                TRIGGER                 12
+                VIEW                     5
+BIPRAM          PACKAGE                  5
+                PACKAGE BODY             3
+                SYNONYM                 50
+BIPRE           FUNCTION                 5
+                INDEX                  352
+                PACKAGE                333
+                PACKAGE BODY           333
+                PROCEDURE               12
+                TABLE                  358
+                TRIGGER                  2
+                VIEW                    22
+BIRAPHIS        TRIGGER                  1
+BIRUN           PROCEDURE                1
+                SYNONYM                  6
+                VIEW                     2
+BI_SELECT_DWH_2 TRIGGER                  2
+_DIS
+
+BISRC           DATABASE LINK            9
+                FUNCTION                 6
+                INDEX                   40
+                JOB                      1
+                LOB                      4
+                PACKAGE                  9
+                PACKAGE BODY             9
+                PROCEDURE               13
+                PROGRAM                  1
+                SCHEDULE                 2
+                SEQUENCE                28
+                SYNONYM                  5
+                TABLE                  225
+                TRIGGER                  9
+
+OWNER           OBJECT_TYPE     NR_OBJECTS
+--------------- --------------- ----------
+BISRC           TYPE                     4
+                VIEW                   651
+BISTI           FUNCTION                 5
+                INDEX                  680
+                INDEX PARTITION          4
+                INDEX SUBPARTIT         24
+                ION
+
+                PACKAGE               1026
+                PACKAGE BODY          1026
+                PROCEDURE               18
+                SEQUENCE               771
+                TABLE                  404
+                TABLE PARTITION         59
+                TABLE SUBPARTIT        324
+                ION
+
+                TRIGGER                  1
+                VIEW                    24
+BISTO           DIMENSION                1
+                FUNCTION                 8
+                INDEX                 4681
+                INDEX PARTITION       6996
+                INDEX SUBPARTIT        336
+                ION
+
+                JOB                      1
+                LOB                      1
+                MATERIALIZED VI          1
+                EW
+
+                PACKAGE                504
+                PACKAGE BODY           504
+                PROCEDURE               18
+                PROGRAM                  1
+                SCHEDULE                 5
+                SEQUENCE                50
+                SYNONYM                425
+                TABLE                  520
+                TABLE PARTITION       1190
+                TABLE SUBPARTIT         84
+                ION
+
+                TRIGGER                  2
+                TYPE                     8
+                VIEW                   397
+BI910599        TABLE                    1
+BOUSER          SYNONYM               1114
+CTXSYS          FUNCTION                 2
+                INDEX                   68
+                INDEXTYPE                4
+                LIBRARY                  1
+                LOB                      4
+                OPERATOR                 6
+                PACKAGE                 77
+                PACKAGE BODY            66
+                PROCEDURE                2
+                SEQUENCE                 3
+                TABLE                   53
+                TYPE                    36
+                TYPE BODY                6
+                VIEW                    81
+DBMON           VIEW                     1
+DBSNMP          INDEX                   10
+                PACKAGE                  4
+                PACKAGE BODY             4
+                PROCEDURE                1
+                SEQUENCE                 2
+                SYNONYM                  1
+                TABLE                   20
+                TYPE                     8
+                VIEW                     7
+FLOWS_FILES     INDEX                    6
+                LOB                      1
+                SYNONYM                  4
+                TABLE                    1
+                TRIGGER                  1
+GENERIC         INDEX                   12
+                PACKAGE                 13
+                PACKAGE BODY            13
+                SEQUENCE                 1
+                TABLE                   11
+                TRIGGER                  1
+                TYPE                     1
+GSMADMIN_INTERN EVALUATION CONT          1
+AL              EXT
+
+                INDEX                   21
+                LIBRARY                  4
+                LOB                      1
+                PACKAGE                  7
+                PACKAGE BODY             7
+                QUEUE                    2
+                RULE SET                 2
+                SEQUENCE                 4
+                TABLE                   21
+                TRIGGER                  4
+
+OWNER           OBJECT_TYPE     NR_OBJECTS
+--------------- --------------- ----------
+GSMADMIN_INTERN TYPE                    30
+AL
+
+                VIEW                     4
+INTDBA          INDEX                   25
+                LOB                     10
+                PACKAGE                 12
+                PACKAGE BODY            12
+                QUEUE                    5
+                SEQUENCE                 2
+                TABLE                    7
+                TRIGGER                  6
+                TYPE                     3
+                TYPE BODY                3
+                VIEW                     4
+MDSYS           FUNCTION               116
+                INDEX                  256
+                INDEXTYPE                1
+                JAVA CLASS             646
+                JAVA RESOURCE            4
+                LIBRARY                 21
+                LOB                    116
+                OPERATOR                25
+                PACKAGE                 77
+                PACKAGE BODY            73
+                PROCEDURE                3
+                SEQUENCE                15
+                TABLE                  141
+                TRIGGER                 62
+                TYPE                   194
+                TYPE BODY               46
+                VIEW                    88
+OJVMSYS         INDEX                    7
+                JAVA DATA                4
+                LOB                      1
+                SEQUENCE                 2
+                TABLE                    6
+ORACLE_OCM      JOB                      2
+                PACKAGE                  3
+                PACKAGE BODY             3
+ORDDATA         INDEX                  155
+                LOB                      9
+                SEQUENCE                13
+                TABLE                   90
+                VIEW                    25
+ORDPLUGINS      PACKAGE                  5
+                PACKAGE BODY             5
+ORDS_METADATA   INDEX                   75
+                JOB                      1
+                LOB                      3
+                PACKAGE                  9
+                PACKAGE BODY             9
+                SEQUENCE                 1
+                TABLE                   27
+                TRIGGER                 26
+                TYPE                    19
+                TYPE BODY                6
+                VIEW                    27
+ORDSYS          FUNCTION                32
+                INDEX                    4
+                JAVA CLASS            2490
+                JAVA RESOURCE           99
+                LIBRARY                  2
+                PACKAGE                 30
+                PACKAGE BODY            22
+                PROCEDURE                7
+                TABLE                    5
+                TYPE                   446
+                TYPE BODY               15
+                VIEW                     5
+OUTLN           INDEX                    5
+                LOB                      1
+                PROCEDURE                1
+                TABLE                    3
+OWBSYS          FUNCTION                69
+                INDEX                  566
+                JAVA CLASS             166
+                JAVA RESOURCE            7
+                LOB                     97
+                MATERIALIZED VI          1
+                EW
+
+                PACKAGE                 99
+                PACKAGE BODY            98
+                PROCEDURE               34
+                QUEUE                    6
+                SEQUENCE                42
+                SYNONYM                  2
+                TABLE                  237
+                TRIGGER                 32
+                TYPE                    74
+                TYPE BODY               13
+                VIEW                  1679
+OWBSYS_AUDIT    SYNONYM                 12
+OWF_MGR         EVALUATION CONT         14
+                EXT
+
+
+OWNER           OBJECT_TYPE     NR_OBJECTS
+--------------- --------------- ----------
+OWF_MGR         INDEX                  254
+                LOB                     50
+                PACKAGE                108
+                PACKAGE BODY           103
+                QUEUE                   32
+                RULE                    11
+                RULE SET                39
+                SEQUENCE                30
+                SYNONYM                177
+                TABLE                  191
+                TYPE                     5
+                TYPE BODY                3
+                VIEW                    98
+PUBLIC          SYNONYM              38257
+SI_INFORMTN_SCH SYNONYM                  8
+EMA
+
+SPLMON          INDEX                   75
+                JOB                      1
+                LOB                      7
+                PACKAGE                 14
+                PACKAGE BODY            14
+                SEQUENCE                 5
+                TABLE                   66
+                TYPE                     5
+                VIEW                     2
+SPOTLIGHT       INDEX                   22
+                LOB                      1
+                PACKAGE                 10
+                PACKAGE BODY            10
+                SEQUENCE                 2
+                TABLE                   29
+                TYPE                     5
+                VIEW                     2
+SYS             CLUSTER                 10
+                CONSUMER GROUP          19
+                CONTEXT                  8
+                DESTINATION              2
+                DIRECTORY               23
+                EDITION                  1
+                EVALUATION CONT          9
+                EXT
+
+                FUNCTION               122
+                INDEX                 1435
+                INDEX PARTITION        413
+                JAVA CLASS           27887
+                JAVA DATA              304
+                JAVA RESOURCE          914
+                JAVA SOURCE              4
+                JOB                     24
+                JOB CLASS               14
+                LIBRARY                167
+                LOB                    207
+                LOB PARTITION           47
+                OPERATOR                 7
+                PACKAGE                711
+                PACKAGE BODY           684
+                PROCEDURE              152
+                PROGRAM                  9
+                QUEUE                   19
+                RESOURCE PLAN           11
+                RULE                     1
+                RULE SET                13
+                SCHEDULE                 4
+                SCHEDULER GROUP          4
+                SEQUENCE               141
+                SYNONYM                 21
+                TABLE                 1267
+                TABLE PARTITION        516
+                TABLE SUBPARTIT        256
+                ION
+
+                TRIGGER                 11
+                TYPE                  1819
+                TYPE BODY              160
+                UNDEFINED               16
+                UNIFIED AUDIT P          7
+                OLICY
+
+                VIEW                  5789
+                WINDOW                   9
+SYSTEM          FUNCTION                 4
+                INDEX                  260
+                INDEX PARTITION         68
+                LOB                     23
+                PACKAGE                  1
+                PACKAGE BODY             1
+                PROCEDURE                1
+                QUEUE                    4
+                SEQUENCE                22
+                SYNONYM                  8
+                TABLE                  179
+                TABLE PARTITION         46
+                TRIGGER                  2
+                TYPE                     9
+                VIEW                    14
+
+OWNER           OBJECT_TYPE     NR_OBJECTS
+--------------- --------------- ----------
+TDPOTR          INDEX                   53
+                LOB                      1
+                PACKAGE                  5
+                PACKAGE BODY             5
+                PROCEDURE                1
+                SEQUENCE                36
+                TABLE                   38
+                TRIGGER                 38
+                TYPE                     2
+                VIEW                     8
+WMSYS           EVALUATION CONT          1
+                EXT
+
+                INDEX                   69
+                LOB                      8
+                OPERATOR                 9
+                PACKAGE                 23
+                PACKAGE BODY            23
+                PROCEDURE                1
+                QUEUE                    2
+                RULE SET                 2
+                SEQUENCE                 6
+                TABLE                   42
+                TRIGGER                 45
+                TYPE                    15
+                TYPE BODY                1
+                VIEW                   142
+XDB             FUNCTION                 6
+                INDEX                  364
+                INDEXTYPE                2
+                LIBRARY                 19
+                LOB                    293
+                OPERATOR                 7
+                PACKAGE                 43
+                PACKAGE BODY            41
+                PROCEDURE                4
+                SEQUENCE                 5
+                TABLE                   51
+                TRIGGER                  8
+                TYPE                   155
+                TYPE BODY                5
+                VIEW                     5
+                XML SCHEMA              44
+
+DOC>	    info05.sql section 2: KB per user and per user-tablespace
+DOC>
+DOC>#
+
+OWNER               KB_USED
+--------------- -----------
+AA103282               1472
+APEX_200100          270528
+BIADM             279748608
+BIDAT              38241152
+BIDWH            2460706752
+BIOTR                  4800
+BIPRE              43715136
+BISRC              54131968
+BISTI            2222912576
+BISTO             667510912
+BI910599            1063936
+CTXSYS                 4480
+DBSNMP                 1024
+FLOWS_FILES           29184
+GENERIC               70592
+GSMADMIN_INTERN        2560
+AL
+
+INTDBA               268608
+MDSYS                 88640
+OJVMSYS                 896
+ORDDATA               17152
+ORDS_METADATA          1024
+ORDSYS                  448
+OUTLN                   576
+OWBSYS             21240704
+OWF_MGR             4997184
+SPLMON              1406784
+SPOTLIGHT               512
+SYS                70446208
+SYSTEM                33088
+TDPOTR              2880320
+WMSYS                  7488
+XDB                  775488
+
+TABLESPACE               KB_USED
+-------------------- -----------
+APEX_20                   299712
+AUDIT_AUX               13696576
+BIADBA_DATA             38243200
+BIADM_DATA             283535680
+BIADM_INDEX              1208000
+BIDWH_DATA            1885325120
+BIDWH_INDEX            575381632
+BIOTR_DATA                  4800
+BIPRE_DATA              37741376
+BIPRE_INDEX              5973760
+BIREP_DATA              16443712
+BIREP_INDEX              4796992
+BISRC_DATA              50996288
+BISRC_INDEX              3135680
+BISTI_DATA            1851677760
+BISTI_INDEX            371234816
+BISTO_DATA             651584128
+BISTO_INDEX             16081472
+GEN_DATA                   50560
+GEN_INDEX                  20032
+INT_DATA                  266560
+INT_INDEX                   2048
+SYSAUX                  16876992
+SYSTEM                   4680576
+TDPALG_DATA              2880320
+UNDO_BIG                36254784
+USERS                    2473920
+DOC>
+DOC>	    The number of Kb per User per Tablespace.
+DOC>#
+
+OWNER           TABLESPACE               KB_USED
+--------------- -------------------- -----------
+APEX_200100     APEX_20                   270528
+FLOWS_FILES     APEX_20                    29184
+SYS             AUDIT_AUX               13696576
+BIADM           BIADBA_DATA                 2048
+BIDAT           BIADBA_DATA             38241152
+BIADM           BIADM_DATA             278538432
+BISTO           BIADM_DATA                    64
+OWF_MGR         BIADM_DATA               4997184
+BIADM           BIADM_INDEX              1208000
+BIDWH           BIDWH_DATA            1885325120
+BIDWH           BIDWH_INDEX            575381632
+BIOTR           BIOTR_DATA                  4800
+BIPRE           BIPRE_DATA              37741376
+BIPRE           BIPRE_INDEX              5973760
+OWBSYS          BIREP_DATA              16443712
+OWBSYS          BIREP_INDEX              4796992
+BISRC           BISRC_DATA              50996288
+BISRC           BISRC_INDEX              3135680
+BISTI           BISTI_DATA            1851677760
+BISTI           BISTI_INDEX            371234816
+BIADM           BISTO_DATA                   128
+BISTO           BISTO_DATA             651680256
+BISTO           BISTO_INDEX             16081472
+GENERIC         GEN_DATA                   50560
+GENERIC         GEN_INDEX                  20032
+INTDBA          INT_DATA                  266560
+INTDBA          INT_INDEX                   2048
+CTXSYS          SYSAUX                      4480
+DBSNMP          SYSAUX                      1024
+GSMADMIN_INTERN SYSAUX                      2560
+AL
+
+MDSYS           SYSAUX                     88640
+ORDDATA         SYSAUX                     17152
+ORDSYS          SYSAUX                       448
+SYS             SYSAUX                  15963584
+SYSTEM          SYSAUX                     16128
+WMSYS           SYSAUX                      7488
+XDB             SYSAUX                    775488
+OJVMSYS         SYSTEM                       896
+OUTLN           SYSTEM                       576
+SYS             SYSTEM                   4662336
+SYSTEM          SYSTEM                     16768
+TDPOTR          TDPALG_DATA              2880320
+SYS             UNDO_BIG                36369472
+AA103282        USERS                       1472
+BI910599        USERS                    1063936
+ORDS_METADATA   USERS                       1024
+SPLMON          USERS                    1406784
+SPOTLIGHT       USERS                        512
+SYSTEM          USERS                        192
+
+DOC>	    info06.sql
+DOC>
+DOC>	    Biggest segments Top 15, ordered by size (Kb)
+DOC>#
+.
+owner      segment         type tabspc          Kb      init      next  ext  max
+--------------------------------------------------------------------------------
+BIDWH      AK_001_DWH_PRSD    I BIDWH_I  319932416        64      1024 ####  UNL
+BISTI      AK_001_STI_PRSD    I BISTI_I  239265792        64      1024 ####  UNL
+BISTI      STI_043_POINTS     T BISTI_D  130379392        64      1024 ####  UNL
+BIADM      SYS_LOB0012045665C L BIADM_D  129178816       104      1024 ####  UNL
+BIADM      SYS_LOB0012045661C L BIADM_D  129170624       104      1024 ####  UNL
+BIDWH      HERSTEL_043_POINTS T BIDWH_D   90064960        64      8192 ####  UNL
+BIDWH      PK_001_DWH_PRSD    I BIDWH_I   76601344        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   71749632        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   71309312        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   62679040        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   62298112        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   59853824        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   59400192        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   54300672        64      1024 ####  UNL
+BISTI      STI_001_PROJ_SNAPS T BISTI_D   53923840        64      1024 ####  UNL
+.
+DOC>	    info06.sql section 2
+DOC>
+DOC>	    Most fragmented segments Top 15, ordered by nr of extents
+DOC>		    These segments have grown outside their storage definition.
+DOC>
+DOC>		    note on SYS segments: do not be alarmed if < 20 ext.
+DOC>#
+.
+owner      segment         type   tabspc        Kb      init      next  ext  max
+--------------------------------------------------------------------------------
+BIDWH      DWH_003_PROD_INSTS T BIDWH_D    1991232        64      1024 ####  UNL
+BIDWH      DWH_003_MEASMNTMSG T BIDWH_D    2302144        64      1024 ####  UNL
+BIDWH      DWH_001_PURCHASE_R T BIDWH_D    1595968        64      1024 ####  UNL
+BIDWH      DWH_001_PURCH_CHAN T BIDWH_D    2068864        64      1024 ####  UNL
+BIDWH      DWH_001_MAN_SUPP_I T BIDWH_D    2134144        64      1024 ####  UNL
+BIDWH      DWH_001_AUTHORIZAT T BIDWH_D    1665152        64      1024 ####  UNL
+BIDWH      DWH_034_ABGESCHL_E T BIDWH_D    3478336        64      1024 ####  UNL
+BIDWH      DWH_001_SUPPLIER_B T BIDWH_D    4282432        64      1024 ####  UNL
+BIDWH      DWH_036_F512_OBJ_R T BIDWH_D    2132416        64      1024 ####  UNL
+BIDWH      DWH_001_PERS       T BIDWH_D     775616        64      1024 ####  UNL
+BIDWH      DWH_001_TECHNICAL_ T BIDWH_D     885504        64      1024 ####  UNL
+BISTI      STI_043_POINTS     T BISTI_D  130379392        64      1024 ####  UNL
+BISTO      F512_OBJECT_RISICO T BISTO_D     692288        64      1024 ####  UNL
+BISTI      STI_001_PROJECT_TR T BISTI_D    6200256        64      1024 ####  UNL
+BIDWH      DWH_001_PART_SERIA T BIDWH_D     772288        64      1024 ####  UNL
+.
+DOC>	    info06.sql section 3
+DOC>
+DOC>	    Segments close to maxextents (> 75%)
+DOC>		    These segments may soon reach their growth limit!
+DOC>#
+
+Er zijn geen rijen geselecteerd.
+
+
+DOC>	    info07.sql : Relevant init-parameters
+DOC>
+DOC>	    Remarks :
+DOC>	    - This list is/was mostly performance oriented.
+DOC>	    - Do not consider this list complete,
+DOC>	      and do manually check te init.ora file.
+DOC>	    - dflt=yes means the value was not set explicit
+DOC>	    - sesmod and sysmod: the value CAN be modified by a DBA
+DOC>	      but this list does no show history
+DOC>	    - Verify if an init.ora is used or an spfile.
+DOC>	      oracle recommends spile, but ini.ora tends to be more manageable.
+DOC>
+DOC>#
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+aq_tm_processes                                   1              IMM
+archive_lag_target                                0              IMM
+audit_file_dest                     /oracle/admin/d   No         DEF
+audit_syslog_level
+audit_sys_operations                           TRUE
+audit_trail                                      DB   No
+buffer_pool_keep
+control_file_record_keep_time                    15   No         IMM
+cpu_count                                        12              IMM
+cursor_bind_capture_destination         memory+disk        Y   Y IMM
+cursor_sharing                                EXACT        Y   Y IMM
+cursor_space_for_time                         FALSE
+db_big_table_cache_percent_target                 0              IMM
+db_block_buffers                                  0
+db_block_checking                             FALSE            Y IMM
+db_block_checksum                           TYPICAL              IMM
+db_block_size                                 8,192   No
+db_cache_advice                                  ON              IMM
+db_cache_size                         7,381,975,040   No         IMM
+db_create_file_dest                                        Y   Y IMM
+db_create_online_log_dest_1                                Y   Y IMM
+db_create_online_log_dest_2                                Y   Y IMM
+db_create_online_log_dest_3                                Y   Y IMM
+db_create_online_log_dest_4                                Y   Y IMM
+db_create_online_log_dest_5                                Y   Y IMM
+db_file_multiblock_read_count                   128        Y   Y IMM
+db_file_name_convert                                       Y
+db_files                                        400   No
+db_flashback_retention_target                 1,440   No         IMM
+db_flash_cache_file                                              IMM
+db_flash_cache_size                               0              IMM
+db_keep_cache_size                                0              IMM
+db_recycle_cache_size                             0              IMM
+dbwr_io_slaves                                    0
+db_writer_processes                               8   No
+db_16k_cache_size                                 0              IMM
+db_2k_cache_size                                  0              IMM
+db_32k_cache_size                                 0              IMM
+db_4k_cache_size                                  0              IMM
+db_8k_cache_size                                  0              IMM
+_disable_highres_ticks                         TRUE   No
+global_context_pool_size
+global_names                                  FALSE        Y   Y IMM
+global_txn_processes                              1              IMM
+hash_area_size                              131,072        Y
+java_jit_enabled                               TRUE        Y   Y IMM
+java_max_sessionspace_size                        0
+java_pool_size                          335,544,320   No         IMM
+java_restrict                                  none
+java_soft_sessionspace_limit                      0
+job_queue_processes                             100   No       Y IMM
+large_pool_size                         536,870,912   No         IMM
+local_listener                                                   IMM
+lock_name_space
+lock_sga                                      FALSE
+log_archive_start                             FALSE
+log_buffer                               60,596,224
+log_checkpoint_interval                   1,048,575   No         IMM
+log_checkpoints_to_alert                      FALSE              IMM
+log_checkpoint_timeout                        1,800              IMM
+max_dispatchers                                                  IMM
+max_dump_file_size                        unlimited        Y   Y IMM
+max_enabled_roles                               150
+max_shared_servers                                               IMM
+max_string_size                            STANDARD            Y IMM
+nls_date_format                            DD-MM-RR   No   Y   Y
+nls_date_language                             DUTCH   No   Y   Y
+open_cursors                                  1,000   No       Y IMM
+open_links                                        4
+open_links_per_instance                           4
+optimizer_adaptive_features                   FALSE   No   Y   Y IMM
+optimizer_adaptive_reporting_only             FALSE        Y   Y IMM
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+optimizer_capture_sql_plan_baseline           FALSE        Y   Y IMM
+optimizer_dynamic_sampling                        0   No   Y   Y IMM
+optimizer_features_enable                  12.1.0.2        Y   Y IMM
+optimizer_index_caching                           0        Y   Y IMM
+optimizer_index_cost_adj                        100        Y   Y IMM
+optimizer_inmemory_aware                       TRUE        Y   Y IMM
+optimizer_mode                             ALL_ROWS        Y   Y IMM
+optimizer_secure_view_merging                  TRUE            Y IMM
+optimizer_use_invisible_indexes               FALSE        Y   Y IMM
+optimizer_use_pending_statistics              FALSE        Y   Y IMM
+optimizer_use_sql_plan_baselines               TRUE        Y   Y IMM
+os_authent_prefix                              ops$
+os_roles                                      FALSE
+pga_aggregate_limit                  13,958,643,712   No         IMM
+pga_aggregate_target                 10,737,418,240   No         IMM
+processes                                     1,500   No
+processor_group_name
+query_rewrite_enabled                          TRUE        Y   Y IMM
+query_rewrite_integrity                    enforced        Y   Y IMM
+remote_login_passwordfile                 EXCLUSIVE   No
+service_names                               dwhdb01              IMM
+session_cached_cursors                           50        Y
+sga_max_size                         23,622,320,128   No
+sga_target                           17,179,869,184   No         IMM
+shared_memory_address                             0
+shared_pool_reserved_size                63,753,420
+shared_pool_size                         67,108,864   No         IMM
+shared_servers                                    1            Y IMM
+shared_server_sessions                                           IMM
+sort_area_retained_size                           0        Y   Y DEF
+sort_area_size                               65,536        Y   Y DEF
+star_transformation_enabled                    TRUE   No   Y   Y IMM
+statistics_level                            TYPICAL        Y   Y IMM
+timed_statistics                               TRUE        Y   Y IMM
+undo_management                                AUTO
+undo_retention                                6,400   No         IMM
+undo_tablespace                            UNDO_BIG   No         IMM
+workarea_size_policy                           AUTO        Y   Y IMM
+
+110 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    generic database parameters
+DOC>#
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+compatible                               12.1.0.2.0   No
+db_domain                                             No
+db_name                                     dwhdb01   No
+ifile
+optimizer_mode                             ALL_ROWS        Y   Y IMM
+spfile                              /oracle/product              IMM
+
+6 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    db_cache related parameters
+DOC>#
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+buffer_pool_keep
+buffer_pool_recycle
+db_block_buffers                                  0
+db_block_checking                             FALSE            Y IMM
+db_block_checksum                           TYPICAL              IMM
+db_block_size                                 8,192   No
+db_cache_advice                                  ON              IMM
+db_cache_size                         7,381,975,040   No         IMM
+db_16k_cache_size                                 0              IMM
+db_2k_cache_size                                  0              IMM
+db_32k_cache_size                                 0              IMM
+db_4k_cache_size                                  0              IMM
+db_8k_cache_size                                  0              IMM
+
+13 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    Nls and date related parameters.
+DOC>#
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+fixed_date                                                     Y IMM
+nls_calendar                        GREGORIAN         No   Y   Y
+nls_comp                            BINARY            No   Y   Y
+nls_currency                        €                 No   Y   Y
+nls_date_format                     DD-MM-RR          No   Y   Y
+nls_date_language                   DUTCH             No   Y   Y
+nls_dual_currency                   €                      Y   Y
+nls_iso_currency                    THE NETHERLANDS   No   Y   Y
+nls_language                        DUTCH             No   Y   Y
+nls_length_semantics                char              No   Y   Y IMM
+nls_nchar_conv_excp                 FALSE                  Y   Y IMM
+nls_numeric_characters              ,.                No   Y   Y
+nls_sort                            DUTCH             No   Y   Y
+nls_territory                       THE NETHERLANDS   No   Y   Y
+nls_time_format                     HH24:MI:SSXFF     No   Y   Y
+nls_timestamp_format                DD-MM-RR HH24:M   No   Y   Y
+                                    I:SSXFF
+
+nls_timestamp_tz_format             DD-MM-RR HH24:M   No   Y   Y
+                                    I:SSXFF TZR
+
+nls_time_tz_format                  HH24:MI:SSXFF T   No   Y   Y
+                                    ZR
+
+
+18 rijen zijn geselecteerd.
+
+DOC>	    and additional nls_parameters
+DOC>#
+
+NAME                                NLS_VALUE
+----------------------------------- ------------------------------
+NLS_LANGUAGE                        DUTCH
+NLS_TERRITORY                       THE NETHERLANDS
+NLS_CURRENCY                        €
+NLS_ISO_CURRENCY                    THE NETHERLANDS
+NLS_NUMERIC_CHARACTERS              ,.
+NLS_CALENDAR                        GREGORIAN
+NLS_DATE_FORMAT                     DD-MM-RR
+NLS_DATE_LANGUAGE                   DUTCH
+NLS_CHARACTERSET                    AL32UTF8
+NLS_SORT                            DUTCH
+NLS_TIME_FORMAT                     HH24:MI:SSXFF
+NLS_TIMESTAMP_FORMAT                DD-MM-RR HH24:MI:SSXFF
+NLS_TIME_TZ_FORMAT                  HH24:MI:SSXFF TZR
+NLS_TIMESTAMP_TZ_FORMAT             DD-MM-RR HH24:MI:SSXFF TZR
+NLS_DUAL_CURRENCY                   €
+NLS_NCHAR_CHARACTERSET              AL16UTF16
+NLS_COMP                            BINARY
+NLS_LENGTH_SEMANTICS                CHAR
+NLS_NCHAR_CONV_EXCP                 FALSE
+
+19 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    Parallel execution related init-parameters
+DOC>#
+
+NAME                                VALUE           DFLT ses pdb sys
+----------------------------------- --------------- ---- --- --- ---
+parallel_adaptive_multi_user        TRUE                         IMM
+parallel_automatic_tuning           FALSE
+parallel_degree_level                           100        Y   Y IMM
+parallel_degree_limit               CPU                    Y   Y IMM
+parallel_degree_policy              MANUAL                 Y   Y IMM
+parallel_execution_message_size              16,384
+parallel_force_local                FALSE                  Y   Y IMM
+parallel_instance_group                                    Y   Y IMM
+parallel_io_cap_enabled             FALSE                  Y   Y IMM
+parallel_max_servers                            120   No         IMM
+parallel_min_percent                              0        Y
+parallel_min_servers                              0   No         IMM
+parallel_min_time_threshold         AUTO                   Y   Y IMM
+parallel_threads_per_cpu                          2              IMM
+
+14 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    File-system related init-parameters
+DOC>		    Help you find dumps and archives.
+DOC>#
+
+NAME                        VALUE                                    DEF
+--------------------------- ---------------------------------------- -------
+audit_file_dest             /oracle/admin/dwhdb01scripts/adump       NonDflt
+background_dump_dest        /oracle/product/12.1.0.2/dbhome_1/rdbms/ Dflt
+                            log
+
+control_file_record_keep_ti 15                                       NonDflt
+control_files               /data01/dwhdb01/control01.ctl, /index01/ NonDflt
+                            dwhdb01/control02.ctl
+
+control_management_pack_acc DIAGNOSTIC+TUNING                        Dflt
+core_dump_dest              /oracle/diag/rdbms/dwhdb01/dwhdb01/cdump Dflt
+cursor_bind_capture_destina memory+disk                              Dflt
+db_create_file_dest                                                  Dflt
+db_create_online_log_dest_1                                          Dflt
+db_create_online_log_dest_2                                          Dflt
+db_create_online_log_dest_3                                          Dflt
+db_create_online_log_dest_4                                          Dflt
+db_create_online_log_dest_5                                          Dflt
+db_recovery_file_dest       /arch/dwhdb01/active                     NonDflt
+db_recovery_file_dest_size  429496729600                             NonDflt
+dg_broker_config_file1      /oracle/product/12.1.0.2/dbhome_1/dbs/dr Dflt
+                            1dwhdb01.dat
+
+dg_broker_config_file2      /oracle/product/12.1.0.2/dbhome_1/dbs/dr Dflt
+                            2dwhdb01.dat
+
+dg_broker_start             FALSE                                    Dflt
+diagnostic_dest             /oracle                                  NonDflt
+fileio_network_adapters                                              Dflt
+file_mapping                FALSE                                    Dflt
+filesystemio_options        SETALL                                   NonDflt
+log_archive_dest                                                     Dflt
+log_archive_dest_state_1    enable                                   Dflt
+log_archive_dest_state_10   enable                                   Dflt
+log_archive_dest_state_11   enable                                   Dflt
+log_archive_dest_state_12   enable                                   Dflt
+log_archive_dest_state_13   enable                                   Dflt
+log_archive_dest_state_14   enable                                   Dflt
+log_archive_dest_state_15   enable                                   Dflt
+log_archive_dest_state_16   enable                                   Dflt
+log_archive_dest_state_17   enable                                   Dflt
+log_archive_dest_state_18   enable                                   Dflt
+log_archive_dest_state_19   enable                                   Dflt
+log_archive_dest_state_2    enable                                   Dflt
+log_archive_dest_state_20   enable                                   Dflt
+log_archive_dest_state_21   enable                                   Dflt
+log_archive_dest_state_22   enable                                   Dflt
+log_archive_dest_state_23   enable                                   Dflt
+log_archive_dest_state_24   enable                                   Dflt
+log_archive_dest_state_25   enable                                   Dflt
+log_archive_dest_state_26   enable                                   Dflt
+log_archive_dest_state_27   enable                                   Dflt
+log_archive_dest_state_28   enable                                   Dflt
+log_archive_dest_state_29   enable                                   Dflt
+log_archive_dest_state_3    enable                                   Dflt
+log_archive_dest_state_30   enable                                   Dflt
+log_archive_dest_state_31   enable                                   Dflt
+log_archive_dest_state_4    enable                                   Dflt
+log_archive_dest_state_5    enable                                   Dflt
+log_archive_dest_state_6    enable                                   Dflt
+log_archive_dest_state_7    enable                                   Dflt
+log_archive_dest_state_8    enable                                   Dflt
+log_archive_dest_state_9    enable                                   Dflt
+log_archive_dest_1          LOCATION=/arch/dwhdb01/active            NonDflt
+log_archive_dest_10                                                  Dflt
+log_archive_dest_11                                                  Dflt
+log_archive_dest_12                                                  Dflt
+log_archive_dest_13                                                  Dflt
+log_archive_dest_14                                                  Dflt
+log_archive_dest_15                                                  Dflt
+log_archive_dest_16                                                  Dflt
+log_archive_dest_17                                                  Dflt
+log_archive_dest_18                                                  Dflt
+
+NAME                        VALUE                                    DEF
+--------------------------- ---------------------------------------- -------
+log_archive_dest_19                                                  Dflt
+log_archive_dest_2                                                   Dflt
+log_archive_dest_20                                                  Dflt
+log_archive_dest_21                                                  Dflt
+log_archive_dest_22                                                  Dflt
+log_archive_dest_23                                                  Dflt
+log_archive_dest_24                                                  Dflt
+log_archive_dest_25                                                  Dflt
+log_archive_dest_26                                                  Dflt
+log_archive_dest_27                                                  Dflt
+log_archive_dest_28                                                  Dflt
+log_archive_dest_29                                                  Dflt
+log_archive_dest_3                                                   Dflt
+log_archive_dest_30                                                  Dflt
+log_archive_dest_31                                                  Dflt
+log_archive_dest_4                                                   Dflt
+log_archive_dest_5                                                   Dflt
+log_archive_dest_6                                                   Dflt
+log_archive_dest_7                                                   Dflt
+log_archive_dest_8                                                   Dflt
+log_archive_dest_9                                                   Dflt
+log_archive_duplex_dest                                              Dflt
+log_archive_format          %t_%s_%r.dbf                             Dflt
+log_archive_min_succeed_des 1                                        Dflt
+max_dump_file_size          unlimited                                Dflt
+shadow_core_dump            partial                                  Dflt
+standby_archive_dest        ?/dbs/arch                               Dflt
+user_dump_dest              /oracle/product/12.1.0.2/dbhome_1/rdbms/ Dflt
+                            log
+
+utl_file_dir                                                         Dflt
+
+93 rijen zijn geselecteerd.
+
+DOC>
+DOC>	    show sga size
+DOC>
+DOC>	    note: values may differ from set-parameter (??)
+DOC>	    this is acutal claimed amount.
+DOC>
+DOC>#
+
+NAME                        VALUE
+--------------------------- ----------------------------------------
+java pool                        335,544,320
+fixed_sga                          4,510,112
+streams pool                      67,108,864
+log_buffer                        62,595,072
+shared pool                    1,744,830,464
+large pool                       536,870,912
+buffer_cache                  14,428,405,760
+shared_io_pool                   536,870,912
+
+8 rijen zijn geselecteerd.
+
+
+NAME                        VALUE
+--------------------------- ----------------------------------------
+Total SGA                     17,716,736,416
+
+1 rij is geselecteerd.
+
+DOC>	info08_v10.sql
+DOC>
+DOC>	Tablespace Parameters and Usage
+DOC>
+DOC>Notes: 1- Only Permanent and Local tablespaces can have auto segment space management
+DOC>	   2- You're choice of tablespace management method cannot be altered!
+DOC>	   3- Check of Undo Guarantee is enabled is added in this listing
+DOC>#
+
+             INITIAL  NEXT                                                                      SEGMENT
+TABLESPACE    EXTENT EXTENT  MIN        MIN                       EXTENT     ALLOCATION PLUGGED SPACE
+NAME            SIZE   SIZE  EXT     EXTLEN RETENTION   LOGGING   MANAGEMENT TYPE       IN      MANAGEMENT
+------------ ------- ------ ---- ---------- ----------- --------- ---------- ---------- ------- ----------
+SYSTEM            64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      MANUAL
+SYSAUX            64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+TEMP            1024   1024    1    1048576 TEMPORARY   NOLOGGING LOCAL      UNIFORM    NO      MANUAL
+USERS             64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+AUDIT_AUX         64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIREP_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIREP_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIADBA_DATA       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIADBA_INDEX      64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIDWH_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIDWH_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISTI_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISTI_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISTO_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISTO_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIPRE_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIPRE_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIADM_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIADM_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISRC_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BISRC_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+GEN_DATA          64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+GEN_INDEX         64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+INT_DATA          64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+INT_INDEX         64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIBCK_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIOTR_DATA        64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+BIOTR_INDEX       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+TDPALG_DATA       64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+TDPALG_INDEX      64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+APEX_20           64           1      65536 PERMANENT   LOGGING   LOCAL      SYSTEM     NO      AUTO
+UNDO_BIG          64           1      65536 NOGUARANTEE LOGGING   LOCAL      SYSTEM     NO      MANUAL
+
+32 rijen zijn geselecteerd.
+
+
+DOC>	    info09.sql
+DOC>
+DOC>	    10g specific info
+DOC>
+DOC>#
+
+Current Scheduler Jobs:
+
+JOB_NAME                 STATE           START_DATE        REPEAT_INTERVAL
+------------------------ --------------- ----------------- ----------------------------------------------------
+CLEANUP_TRANSIENT_TYPE   SCHEDULED       20-NOV-2020 17:35 FREQ = HOURLY; INTERVAL = 2
+CLEANUP_TAB_IOT_PMO      SCHEDULED       20-NOV-2020 17:34 FREQ = HOURLY; INTERVAL = 1
+CLEANUP_ONLINE_IND_BUILD SCHEDULED       20-NOV-2020 17:34 FREQ = HOURLY; INTERVAL = 1
+CLEANUP_NON_EXIST_OBJ    SCHEDULED       20-NOV-2020 17:34 FREQ = HOURLY; INTERVAL = 12
+PMO_DEFERRED_GIDX_MAINT_ SCHEDULED       21-NOV-2020 02:00
+JOB
+
+ST$12481                 DISABLED        27-NOV-2019 16:50 FREQ = MINUTELY; INTERVAL = 10
+LOAD_OPATCH_INVENTORY    DISABLED        20-NOV-2020 17:33
+FILE_SIZE_UPD            SCHEDULED       20-NOV-2020 17:35 FREQ = MINUTELY; INTERVAL = 5
+CLEANUP_ONLINE_PMO       SCHEDULED       20-NOV-2020 17:35 FREQ = HOURLY; INTERVAL = 1
+CLEANUP_TRANSIENT_PKG    SCHEDULED       20-NOV-2020 17:35 FREQ = HOURLY; INTERVAL = 2
+GATHERSTATS_7826637      SCHEDULED       04-MEI-2014 00:00 Freq=WEEKLY;ByDay=SUN;ByHour=09;ByMinute=0;BySecond=
+                                                           0
+
+ADV_SQLACCESS3528361     FAILED          29-APR-2014 10:16
+STANDARD_AUDIT_TRAIL_OS  SCHEDULED       02-JAN-2014 13:37 FREQ=HOURLY;INTERVAL=24
+STANDARD_AUDIT_TRAIL_PJ  SCHEDULED       02-JAN-2014 13:37 FREQ=HOURLY;INTERVAL=24
+XMLDB_NFS_CLEANUP_JOB    DISABLED                          Freq=minutely;interval=5
+SM$CLEAN_AUTO_SPLIT_MERG SCHEDULED       18-DEC-2013 16:36 freq=daily;byhour=0;byminute=0;bysecond=0
+E
+
+RSE$CLEAN_RECOVERABLE_SC SCHEDULED       18-DEC-2013 16:36 freq=daily;byhour=0;byminute=0;bysecond=0
+RIPT
+
+FGR$AUTOPURGE_JOB        DISABLED                          freq=daily;byhour=0;byminute=0;bysecond=0
+BSLN_MAINTAIN_STATS_JOB  SCHEDULED       22-DEC-2013 00:00
+DRA_REEVALUATE_OPEN_FAIL SCHEDULED
+URES
+
+HM_CREATE_OFFLINE_DICTIO DISABLED
+NARY
+
+ORA$AUTOTASK_CLEAN       SCHEDULED       19-DEC-2013 03:00
+FILE_WATCHER             DISABLED
+PURGE_LOG                SCHEDULED       19-DEC-2013 03:00
+MGMT_STATS_CONFIG_JOB    SCHEDULED       21-JUL-2014 18:05 freq=monthly;interval=1;bymonthday=1;byhour=01;bymin
+                                                           ute=01;bysecond=01
+
+MGMT_CONFIG_JOB          SCHEDULED
+JOB_AUDIT_DETAIL_LONG    DISABLED
+JOB_ELKEDAG_000_TABLE_ST SCHEDULED       08-DEC-2020 03:00
+ATS
+
+JOB_ELKEDAG_000_TABLE_ST SCHEDULED       06-JAN-2021 08:00
+ATS
+
+JOB_ELKEDAG_041_PRED_MAI SCHEDULED       28-SEP-2021 01:00
+NT
+
+JOB_ELKEDAG_005_CASU     SCHEDULED       27-SEP-2021 18:00
+JOB_ELKEDAG_046_EMS      SCHEDULED       27-SEP-2021 22:30
+JOB_ELKEDAG_045_E31      SCHEDULED       27-SEP-2021 22:00
+JOB_ELKEDAG_044_E66      SCHEDULED       27-SEP-2021 21:30
+JOB_ELKEDAG_518_EOP      SCHEDULED       28-SEP-2021 05:00
+JOB_ELKEDAG_042_ENERGIEO SCHEDULED       28-SEP-2021 04:00
+PWEK
+
+JOB_NAME                 STATE           START_DATE        REPEAT_INTERVAL
+------------------------ --------------- ----------------- ----------------------------------------------------
+
+JOB_ELKEDAG_042_GET_EOP  SCHEDULED       28-SEP-2021 01:00
+JOB_ELKEDAG_041_GET_PM   SCHEDULED       27-SEP-2021 21:00
+JOB_ELKEDAG_517_ENTSOE   SCHEDULED       27-SEP-2021 19:00
+JOB_ELKEDAG_015_ENTSOE   RUNNING         18-NOV-2021 11:00
+JOB_ELKEDAG_043_SOD      SCHEDULED       27-SEP-2021 23:00
+JOB_ELKEDAG_519_GLDPM    SCHEDULED       28-SEP-2021 01:00
+JOB_001_EENMALIG         SUCCEEDED       15-JAN-2020 23:30
+JOB_ELKEDAG_512_LATEST_E SCHEDULED       28-SEP-2021 09:01
+ST
+
+JOB_ELKEDAG_034_DSO_PUBL SCHEDULED       27-SEP-2021 21:00
+ICAT
+
+JOB_ELKEDAG_034_GET_PUBL SCHEDULED       27-SEP-2021 18:00
+ICAT
+
+JOB_ELKEDAG_032_RIS_REG  DISABLED
+JOB_ELKKWARTIER_515_ETL_ RUNNING         27-SEP-2021 09:56
+MON
+
+JOB_ELKEDAG_514_SSBI     SCHEDULED       27-SEP-2021 19:00
+JOB_ELKEDAG_035_PROPHET  SCHEDULED       28-SEP-2021 01:00
+JOB_ELKEDAG_033_REISMAN  SCHEDULED       28-SEP-2021 01:00
+JOB_ELKEDAG_512_CAERUS   SCHEDULED       28-SEP-2021 06:00
+JOB_ELKKWARTIER_039_ETL_ SCHEDULED       27-SEP-2021 10:01
+MON
+
+JOB_ELKEDAG_038_PROCUREM SCHEDULED       27-SEP-2021 18:00
+ENT
+
+JOB_ELKEDAG_037_LATEST_E SCHEDULED       28-SEP-2021 08:00
+ST
+
+JOB_ELKEDAG_000_LOGGING  SCHEDULED       27-SEP-2021 17:00
+JOB_ELKEDAG_513_REISMAN  SCHEDULED       28-SEP-2021 06:00
+JOB_ELKEDAG_031_HEALTHIN SCHEDULED       28-SEP-2021 03:00
+DEX
+
+JOB_SRC_EENMALIG         SUCCEEDED
+JOB_ELKEDAG_999_OVERALL  RUNNING         28-SEP-2021 01:00
+JOB_IFS_EENMALIG         SUCCEEDED
+JOB_ELKEDAG_501_SOU      DISABLED
+JOB_ELKEDAG_040_HI_GERMA SCHEDULED       27-SEP-2021 18:00
+NY
+
+JOB_ELKEDAG_STI_DWH_STO  DISABLED
+JOB_ELKEDAG_026_MOIP     SCHEDULED       28-SEP-2021 05:00
+JOB_ELKEDAG_000_GENERIEK SCHEDULED       28-SEP-2021 00:00
+JOB_ELKEDAG_PDB_VULLEN   SCHEDULED       28-SEP-2021 00:00
+JOB_ELKEDAG_003_SOURCE   SCHEDULED       18-NOV-2021 05:00
+JOB_ELKEDAG_PROJECT      DISABLED
+JOB_ELKEDAG_ODS_ONDERHOU DISABLED
+D
+
+JOB_ELKEDAG_ODS_UREN     DISABLED
+QUEST_PPCM_JOB_PM_1      SCHEDULED       28-MRT-2014 00:00 FREQ=MINUTELY;INTERVAL=10
+
+JOB_NAME                 STATE           START_DATE        REPEAT_INTERVAL
+------------------------ --------------- ----------------- ----------------------------------------------------
+ORACLE_APEX_BACKUP       SCHEDULED       01-FEB-2021 10:30 FREQ=DAILY; BYHOUR=2
+ORACLE_APEX_ISSUE_EMAILS SCHEDULED       01-FEB-2021 10:30 FREQ=HOURLY;BYMINUTE=0;BYSECOND=0
+ORACLE_APEX_DICTIONARY_C SCHEDULED       01-FEB-2021 10:30 FREQ=DAILY;BYHOUR=1;BYMINUTE=0;BYSECOND=0
+ACHE
+
+ORACLE_APEX_AUTO_APPROVA DISABLED        01-FEB-2021 10:30 FREQ=MINUTELY; INTERVAL=2
+L
+
+ORACLE_APEX_DAILY_MAINTE SCHEDULED       01-FEB-2021 10:30 FREQ=DAILY;BYHOUR=1;BYMINUTE=0;BYSECOND=0
+NANCE
+
+ORACLE_APEX_WS_NOTIFICAT SCHEDULED       01-FEB-2021 10:30 FREQ=MINUTELY;BYMINUTE=0,30;BYSECOND=0
+IONS
+
+ORACLE_APEX_MAIL_QUEUE   SCHEDULED       01-FEB-2021 10:30 FREQ=MINUTELY;BYMINUTE=0,5,10,15,20,25,30,35,40,45,5
+                                                           0,55;BYSECOND=0
+
+ORACLE_APEX_PURGE_SESSIO SCHEDULED       01-FEB-2021 10:30 FREQ=HOURLY;BYMINUTE=0
+NS
+
+CLEAN_OLD_ORDS_SESSIONS  SCHEDULED       01-FEB-2021 11:50 FREQ=HOURLY;INTERVAL=1
+
+Current Scheduler Windows:
+
+WINDOW_NAME
+----------------------------------------------------------------------------------------------------------------
+RESOURCE_PLAN
+----------------------------------------------------------------------------------------------------------------
+WEEKEND_WINDOW
+
+
+WEEKNIGHT_WINDOW
+
+
+SUNDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+SATURDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+FRIDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+THURSDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+WEDNESDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+TUESDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+MONDAY_WINDOW
+DEFAULT_MAINTENANCE_PLAN
+
+
+Scheduler Job Run Details ordered by log_date - last 50 lines:
+
+    LOG_ID JOB_NAME                 STATUS                         LOG_DATE          OWNER
+---------- ------------------------ ------------------------------ ----------------- --------------------
+    567266 ORA$AT_SA_SPC_SY_8261    SUCCEEDED                      04-MRT-2018 06:19 SYS
+    211773 ORA$AT_SA_SPC_SY_3932    SUCCEEDED                      05-AUG-2016 00:15 SYS
+   3559544 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      12-NOV-2021 03:40 APEX_200100
+   3559552 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      12-NOV-2021 03:45 APEX_200100
+   3559564 CLEAN_OLD_ORDS_SESSIONS  SUCCEEDED                      12-NOV-2021 03:50 ORDS_METADATA
+   3559558 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      12-NOV-2021 03:50 SPLMON
+   3559566 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      12-NOV-2021 03:55 APEX_200100
+   3559570 JOB_ELKKWARTIER_515_ETL_ SUCCEEDED                      12-NOV-2021 03:56 BIADM
+           MON
+
+   3559584 ORACLE_APEX_PURGE_SESSIO SUCCEEDED                      12-NOV-2021 04:00 APEX_200100
+           NS
+
+   3559580 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      12-NOV-2021 04:00 APEX_200100
+   3559576 ORACLE_APEX_WS_NOTIFICAT SUCCEEDED                      12-NOV-2021 04:00 APEX_200100
+           IONS
+
+   3559588 JOB_ELKKWARTIER_039_ETL_ SUCCEEDED                      12-NOV-2021 04:02 BIADM
+           MON
+
+   3559594 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      12-NOV-2021 04:10 APEX_200100
+   3559600 JOB_ELKKWARTIER_515_ETL_ SUCCEEDED                      12-NOV-2021 04:12 BIADM
+           MON
+
+    147775 ORA$AT_SA_SPC_SY_2766    SUCCEEDED                      15-NOV-2015 22:11 SYS
+        68 ORA$AT_SA_SPC_SY_2       SUCCEEDED                      18-DEC-2013 22:00 SYS
+       284 ORA$AT_SA_SPC_SY_14      SUCCEEDED                      21-DEC-2013 10:09 SYS
+       304 ORA$AT_SA_SPC_SY_16      SUCCEEDED                      21-DEC-2013 14:10 SYS
+       324 ORA$AT_SA_SPC_SY_18      SUCCEEDED                      21-DEC-2013 18:10 SYS
+       344 ORA$AT_SA_SPC_SY_20      SUCCEEDED                      21-DEC-2013 22:10 SYS
+      5927 ORA$AT_SA_SPC_SY_347     SUCCEEDED                      21-FEB-2014 22:02 SYS
+      5926 ORA$AT_OS_OPT_SY_346     SUCCEEDED                      21-FEB-2014 22:14 SYS
+       384 ORA$AT_SA_SPC_SY_22      SUCCEEDED                      22-DEC-2013 06:00 SYS
+       383 ORA$AT_OS_OPT_SY_21      SUCCEEDED                      22-DEC-2013 06:00 SYS
+       407 ORA$AT_SA_SPC_SY_25      SUCCEEDED                      22-DEC-2013 10:00 SYS
+       406 ORA$AT_OS_OPT_SY_24      SUCCEEDED                      22-DEC-2013 10:00 SYS
+      5968 ORA$AT_OS_OPT_SY_349     SUCCEEDED                      22-FEB-2014 06:08 SYS
+      5993 ORA$AT_SA_SPC_SY_353     SUCCEEDED                      22-FEB-2014 10:07 SYS
+      5992 ORA$AT_OS_OPT_SY_352     SUCCEEDED                      22-FEB-2014 10:11 SYS
+      6015 ORA$AT_OS_OPT_SY_354     SUCCEEDED                      22-FEB-2014 14:06 SYS
+     35264 ORA$AT_SA_SPC_SY_1048    SUCCEEDED                      26-JUL-2014 06:07 SYS
+     35341 ORA$AT_SA_SPC_SY_1051    SUCCEEDED                      26-JUL-2014 14:01 SYS
+     35499 ORA$AT_SQ_SQL_SW_1055    SUCCEEDED                      27-JUL-2014 06:12 SYS
+     35577 ORA$AT_SA_SPC_SY_1057    SUCCEEDED                      27-JUL-2014 14:04 SYS
+     35616 ORA$AT_SA_SPC_SY_1058    SUCCEEDED                      27-JUL-2014 18:04 SYS
+     35654 ORA$AT_SA_SPC_SY_1059    SUCCEEDED                      27-JUL-2014 22:03 SYS
+     55587 ORA$AT_SQ_SQL_SW_1351    SUCCEEDED                      27-OKT-2014 22:17 SYS
+     76744 ORA$AT_SA_SPC_SY_1668    SUCCEEDED                      28-JAN-2015 22:21 SYS
+   3522522 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      28-OKT-2021 04:10 SPLMON
+   3522528 JOB_ELKKWARTIER_515_ETL_ SUCCEEDED                      28-OKT-2021 04:11 BIADM
+           MON
+
+   3522538 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      28-OKT-2021 04:20 SPLMON
+   3522552 ORACLE_APEX_WS_NOTIFICAT SUCCEEDED                      28-OKT-2021 04:30 APEX_200100
+           IONS
+
+   3522570 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      28-OKT-2021 04:40 SPLMON
+
+    LOG_ID JOB_NAME                 STATUS                         LOG_DATE          OWNER
+---------- ------------------------ ------------------------------ ----------------- --------------------
+   3522582 JOB_ELKKWARTIER_039_ETL_ SUCCEEDED                      28-OKT-2021 04:48 BIADM
+           MON
+
+   3522586 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      28-OKT-2021 04:50 SPLMON
+   3522608 JOB_ELKEDAG_026_MOIP     SUCCEEDED                      28-OKT-2021 05:07 BIADM
+   3522686 QUEST_PPCM_JOB_PM_1      SUCCEEDED                      28-OKT-2021 05:51 SPLMON
+   3522696 JOB_ELKKWARTIER_515_ETL_ SUCCEEDED                      28-OKT-2021 05:59 BIADM
+           MON
+
+   3522710 ORACLE_APEX_PURGE_SESSIO SUCCEEDED                      28-OKT-2021 06:00 APEX_200100
+           NS
+
+   3522702 ORACLE_APEX_MAIL_QUEUE   SUCCEEDED                      28-OKT-2021 06:00 APEX_200100
+
+PROPERTY_NAME                PROPERTY_VALUE                           DESCRIPTION
+---------------------------- ---------------------------------------- ------------------------------------
+DICT.BASE                    2                                        dictionary base tables version #
+DEFAULT_TEMP_TABLESPACE      TEMP                                     Name of default temporary tablespace
+DEFAULT_PERMANENT_TABLESPACE USERS                                    Name of default permanent tablespace
+DEFAULT_EDITION              ORA$BASE                                 Name of the database default edition
+Flashback Timestamp TimeZone GMT                                      Flashback timestamp created in GMT
+TDE_MASTER_KEY_ID
+DBTIMEZONE                   +01:00                                   DB time zone
+DST_UPGRADE_STATE            NONE                                     State of Day Light Saving Time Upgra
+                                                                      de
+
+DST_PRIMARY_TT_VERSION       14                                       Version of primary timezone data fil
+                                                                      e
+
+DST_SECONDARY_TT_VERSION     0                                        Version of secondary timezone data f
+                                                                      ile
+
+DEFAULT_TBS_TYPE             SMALLFILE                                Default tablespace type
+NLS_LANGUAGE                 AMERICAN                                 Language
+NLS_TERRITORY                AMERICA                                  Territory
+NLS_CURRENCY                 $                                        Local currency
+NLS_ISO_CURRENCY             AMERICA                                  ISO currency
+NLS_NUMERIC_CHARACTERS       .,                                       Numeric characters
+NLS_CHARACTERSET             AL32UTF8                                 Character set
+NLS_CALENDAR                 GREGORIAN                                Calendar system
+NLS_DATE_FORMAT              DD-MON-RR                                Date format
+NLS_DATE_LANGUAGE            AMERICAN                                 Date language
+NLS_SORT                     BINARY                                   Linguistic definition
+NLS_TIME_FORMAT              AM                                       Time format
+NLS_TIMESTAMP_FORMAT         DD-MON-RR HH.MI.SSXFF AM                 Time stamp format
+NLS_TIME_TZ_FORMAT           TZR                                      Time with timezone format
+NLS_TIMESTAMP_TZ_FORMAT      DD-MON-RR HH.MI.SSXFF AM TZR             Timestamp with timezone format
+NLS_DUAL_CURRENCY            $                                        Dual currency symbol
+NLS_COMP                     BINARY                                   NLS comparison
+NLS_LENGTH_SEMANTICS         BYTE                                     NLS length semantics
+NLS_NCHAR_CONV_EXCP          FALSE                                    NLS conversion exception
+NLS_NCHAR_CHARACTERSET       AL16UTF16                                NCHAR Character set
+NLS_RDBMS_VERSION            12.1.0.2.0                               RDBMS version for NLS parameters
+GLOBAL_DB_NAME               DWHDB01                                  Global database name
+EXPORT_VIEWS_VERSION         8                                        Export views revision #
+WORKLOAD_CAPTURE_MODE                                                 CAPTURE implies workload capture is
+                                                                      in progress
+
+WORKLOAD_REPLAY_MODE                                                  PREPARE implies external replay clie
+                                                                      nts can connect; REPLAY implies work
+                                                                      load replay is in progress
+
+NO_USERID_VERIFIER_SALT      8AB3138BE07E344C83315D68182991B0
+MAX_STRING_SIZE              STANDARD                                 MAX_STRING_SIZE paramter used for di
+                                                                      ctionary metadata
+
+
+AWR (Automatic Workload Repository) setting.
+
+SNAP_INTERVAL                  RETENTION
+------------------------------ ------------------------------
++00000 00:15:00.0              +00034 17:20:00.0
+
+SP2-0310: Kan bestand "info_patches.sql" niet openen.
